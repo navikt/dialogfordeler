@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>no.nav.syfo</groupId>
+    <artifactId>dialogfordeler</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Dialogfordeler</name>
+
+    <prerequisites>
+        <maven>3.3.9</maven>
+    </prerequisites>
+
+    <scm>
+        <developerConnection>scm:git:http://stash.devillo.no/scm/syfo/dialogfordeler.git</developerConnection>
+        <url>http://stash.devillo.no/projects/SYFO/repos/dialogfordeler</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>dialogfordeler-app</module>
+        <module>dialogfordeler-config</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.8.RELEASE</version>
+    </parent>
+
+
+    <distributionManagement>
+        <repository>
+            <id>m2internal</id>
+            <name>NAV Internal Repository</name>
+            <url>dav:http://maven.adeo.no/nexus/content/repositories/m2internal</url>
+        </repository>
+        <snapshotRepository>
+            <id>m2snapshot</id>
+            <name>NAV Snapshot Repository</name>
+            <url>dav:http://maven.adeo.no/nexus/content/repositories/m2snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
+        <!--SPRING-BOOT-->
+        <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
+        <!--SPRING-->
+        <!--<spring.version>4.3.9.RELEASE</spring.version>-->
+        <!--LOGGING-->
+        <logstash-logback-encoder.version>4.10</logstash-logback-encoder.version>
+        <!--PROMETHEUS-->
+        <prometheus.version>0.0.26</prometheus.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--JAVAX-->
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
+            </dependency>
+            <!--SPRING-BOOT-->
+            <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot</artifactId>-->
+            <!--<version>${spring-boot.version}</version>-->
+            <!--</dependency>-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-autoconfigure</artifactId>-->
+            <!--<version>${spring-boot.version}</version>-->
+            <!--</dependency>-->
+            <!--SPRING-->
+            <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-web</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+            <!--</dependency>-->
+
+            <!--LOGGING-->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
+
+            <!--PROMETHEUS-->
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>simpleclient</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>simpleclient_hotspot</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>simpleclient_servlet</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>simpleclient_pushgateway</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>simpleclient_spring_boot</artifactId>
+                <version>${prometheus.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!--Logging-->
+        <!--<dependency>-->
+        <!--<groupId>org.slf4j</groupId>-->
+        <!--<artifactId>slf4j-api</artifactId>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>1.0</version>
+            </extension>
+        </extensions>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.20.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.20.1</version>
+                    <configuration>
+                        <additionalClasspathElements>${basedir}/target/classes</additionalClasspathElements>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
