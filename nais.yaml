@@ -17,8 +17,8 @@ prometheus:
 resources:
   limits:
     cpu: 4000m
-#fasitResources:
-#  used:
+fasitResources:
+  used:
 #  - alias: mqGateway02
 #    resourceType: queueManager
 #  - alias: varseloppgave_channel
@@ -43,8 +43,8 @@ resources:
 #    resourceType: certificate
 #  - alias: app_truststore
 #    resourceType: certificate
-#  - alias: varseloppgaveconfig
-#    resourceType: applicationproperties
+  - alias: dialogfordelerProperties
+    resourceType: applicationproperties
 #  exposed:
 #  - alias: Varseloppgave_v1
 #    resourceType: webserviceendpoint

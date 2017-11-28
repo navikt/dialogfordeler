@@ -14,5 +14,5 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class TestProperties {
     @NotEmpty
-    private String test;
+    private String prop;
 }
