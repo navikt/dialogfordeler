@@ -1,5 +1,6 @@
 package no.nav.syfo.web.selftest;
 
+import io.prometheus.client.spring.web.PrometheusTimeMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -14,12 +15,14 @@ public class SelftestController {
 
     @ResponseBody
     @RequestMapping(value = "/isAlive", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PrometheusTimeMethod(name="isAlive", help = "Kaller isAlive")
     public String isAlive() {
         return APPLICATION_LIVENESS;
     }
 
     @ResponseBody
     @RequestMapping(value = "/isReady", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PrometheusTimeMethod(name="isReady", help = "Kaller isReady")
     public String isReady() {
         return APPLICATION_READY;
     }
