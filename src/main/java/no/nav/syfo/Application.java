@@ -20,6 +20,8 @@ public class Application {
         final Map<String, String> envProperties = System.getenv();
         envProperties.forEach(systemProperties::putIfAbsent);
         envProperties.forEach((key, value) -> systemProperties.putIfAbsent(convertKey(key), value));
+
+        systemProperties.forEach((k, v) -> log.info("Property: {}", k));
     }
 
     private static String convertKey(String key) {

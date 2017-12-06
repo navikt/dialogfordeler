@@ -47,6 +47,11 @@
         <logstash-logback-encoder.version>4.10</logstash-logback-encoder.version>
         <!--PROMETHEUS-->
         <prometheus.version>0.0.26</prometheus.version>
+        <!--MQ-->
+        <jms.version>1.1</jms.version>
+        <wmq.version>7.0</wmq.version>
+        <!--MQ Spring-->
+        <spring-jms.version>5.0.2.RELEASE</spring-jms.version>
     </properties>
 
     <dependencies>
@@ -103,8 +108,8 @@
 
         <!--LOGGING-->
         <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -124,6 +129,42 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--MQ-->
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>jms</artifactId>
+            <version>${jms.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm</groupId>
+            <artifactId>com.ibm.mq</artifactId>
+            <version>${wmq.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm</groupId>
+            <artifactId>com.ibm.mqjms</artifactId>
+            <version>${wmq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm</groupId>
+            <artifactId>dhbcore</artifactId>
+            <version>${wmq.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm.mq</groupId>
+            <artifactId>jmqi</artifactId>
+            <version>${wmq.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!--MQ Spring-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring-jms.version}</version>
         </dependency>
     </dependencies>
 

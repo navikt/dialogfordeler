@@ -19,14 +19,16 @@ resources:
     cpu: 4000m
 fasitResources:
   used:
-#  - alias: mqGateway02
-#    resourceType: queueManager
-#  - alias: varseloppgave_channel
-#    resourceType: channel
-#  - alias: "henvendelse_OPPGAVE.HENVENDELSE"
-#    resourceType: queue
-#  - alias: "VARSELPRODUKSJON.BEST_VARSEL_M_HANDLING"
-#    resourceType: queue
+  - alias: mqGateway03
+    resourceType: queueManager
+  - alias: dialogfordeler_channel
+    resourceType: channel
+  - alias: "dialogfordeler_dialogmeldinger"
+    resourceType: queue
+  - alias: "eia_queue_mottak_inbound"
+    resourceType: queue
+  - alias: "eia_queue_mottak_outbound"
+    resourceType: queue
 #  - alias: VarselInfo_v1
 #    resourceType: restservice
 #  - alias: Aktoer_v2
