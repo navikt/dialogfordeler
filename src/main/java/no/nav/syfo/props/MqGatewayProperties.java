@@ -2,7 +2,6 @@ package no.nav.syfo.props;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,6 @@ import javax.validation.constraints.Min;
 
 @Getter
 @Setter
-@ToString
 @ConfigurationProperties("MQGATEWAY03")
 @Component
 @Validated

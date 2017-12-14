@@ -41,10 +41,13 @@
     <properties>
         <start-class>no.nav.syfo.Application</start-class>
         <java.version>1.8</java.version>
+        <!--JAVAX-->
+        <javax.inject.version>1</javax.inject.version>
         <!--SPRING-BOOT-->
         <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
         <!--LOGGING-->
         <logstash-logback-encoder.version>4.10</logstash-logback-encoder.version>
+        <modig-log-common.version>1.1.3</modig-log-common.version>
         <!--PROMETHEUS-->
         <prometheus.version>0.0.26</prometheus.version>
         <!--MQ-->
@@ -52,6 +55,14 @@
         <wmq.version>7.0</wmq.version>
         <!--MQ Spring-->
         <spring-jms.version>5.0.2.RELEASE</spring-jms.version>
+        <!--KITH-->
+        <digisyfo-kith-hodemelding.version>1.0.0</digisyfo-kith-hodemelding.version>
+        <digisyfo-kith-dialogmelding.version>1.0.0</digisyfo-kith-dialogmelding.version>
+        <digisyfo-kith-base64.version>1.0.0</digisyfo-kith-base64.version>
+        <!--TEST-->
+        <junit.version>4.12</junit.version>
+        <mockito-all.version>1.10.19</mockito-all.version>
+        <assertj-core.version>3.6.2</assertj-core.version>
     </properties>
 
     <dependencies>
@@ -59,7 +70,7 @@
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <version>${javax.inject.version}</version>
         </dependency>
 
         <!--SPRING-BOOT-->
@@ -127,6 +138,13 @@
             <version>${logstash-logback-encoder.version}</version>
         </dependency>
         <dependency>
+            <groupId>no.nav.modig</groupId>
+            <artifactId>modig-log-common</artifactId>
+            <version>${modig-log-common.version}</version>
+        </dependency>
+
+        <!--LOMBOK-->
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
@@ -165,6 +183,48 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
             <version>${spring-jms.version}</version>
+        </dependency>
+
+        <!--KITH-->
+        <dependency>
+            <groupId>no.nav.sbl</groupId>
+            <artifactId>digisyfo-kith-hodemelding</artifactId>
+            <version>${digisyfo-kith-hodemelding.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>no.nav.sbl</groupId>
+            <artifactId>digisyfo-kith-dialogmelding</artifactId>
+            <version>${digisyfo-kith-dialogmelding.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>no.nav.sbl</groupId>
+            <artifactId>digisyfo-kith-base64</artifactId>
+            <version>${digisyfo-kith-base64.version}</version>
+        </dependency>
+
+        <!--TEST-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito-all.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

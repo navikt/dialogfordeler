@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.connection.JmsTransactionManager;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.destination.DestinationResolver;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -32,6 +33,14 @@ public class JmsConfig {
     @Bean
     public Queue eiaQueueMottakInbound(MqEiaQueueMottakInboundProperties queue) throws JMSException {
         return new MQQueue(queue.getQueuename());
+    }
+
+    @Bean
+    public JmsTemplate jmsEiaQueueMottakInbound(Queue eiaQueueMottakInbound, ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setDefaultDestination(eiaQueueMottakInbound);
+        jmsTemplate.setConnectionFactory(connectionFactory);
+        return jmsTemplate;
     }
 
     @Bean

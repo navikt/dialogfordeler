@@ -2,7 +2,7 @@
 <included>
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>[%t, %d, %-5p, %C:%L] - %.-100000m%n</pattern>
+			<pattern>[%t, %d, %-5p, %C:%L, %X{callId}] - %.-100000m%n</pattern>
 		</encoder>
 	</appender>
 
