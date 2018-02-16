@@ -12,8 +12,4 @@ public class AppRecService {
         log.info("Mottatt AppRec");
         throw new IllegalStateException("Ikke implementert");
     }
-
-    public boolean erSyfoAppRec(Fellesformat fellesformat) {
-        return false;
-    }
 }

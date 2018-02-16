@@ -6,6 +6,7 @@ import no.nav.syfo.domain.apprecwrapper.AppRec1_0;
 import no.nav.syfo.domain.apprecwrapper.AppRec1_1;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
 import no.trygdeetaten.xml.eiff._1.XMLEIFellesformat;
+import no.trygdeetaten.xml.eiff._1.XMLMottakenhetBlokk;
 
 import javax.jms.TextMessage;
 import java.util.ArrayList;
@@ -16,12 +17,16 @@ public class Fellesformat {
     private TextMessage textMessage;
     private XMLEIFellesformat fellesformat;
 
+    private List<XMLMottakenhetBlokk> mottakenhetBlokkListe;
+
     private List<Hodemelding> hodemeldingListe;
     private List<AppRec> appRecListe;
 
     public Fellesformat(TextMessage textMessage, XMLEIFellesformat fellesformat) {
         this.textMessage = textMessage;
         this.fellesformat = fellesformat;
+
+        this.mottakenhetBlokkListe = new ArrayList<>();
 
         this.hodemeldingListe = new ArrayList<>();
         this.appRecListe = new ArrayList<>();
@@ -33,6 +38,8 @@ public class Fellesformat {
                 appRecListe.add(new AppRec1_0((no.kith.xmlstds.apprec._2004_11_21.XMLAppRec) melding));
             } else if (melding instanceof no.kith.xmlstds.apprec._2012_02_15.XMLAppRec) {
                 appRecListe.add(new AppRec1_1((no.kith.xmlstds.apprec._2012_02_15.XMLAppRec) melding));
+            } else if (melding instanceof XMLMottakenhetBlokk) {
+                mottakenhetBlokkListe.add((XMLMottakenhetBlokk) melding);
             }
         });
     }
