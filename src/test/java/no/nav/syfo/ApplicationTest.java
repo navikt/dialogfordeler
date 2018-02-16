@@ -23,6 +23,8 @@ public class ApplicationTest {
     @Inject
     private MqEiaQueueMottakOutboundProperties mqEiaQueueMottakOutboundProperties;
     @Inject
+    private MqEiaQueueMottakMeldingOutboundProperties mqEiaQueueMottakMeldingOutboundProperties;
+    @Inject
     private MqGatewayProperties mqGatewayProperties;
     @Inject
     private SrvAppserverProperties srvAppserverProperties;
@@ -37,6 +39,7 @@ public class ApplicationTest {
         soft.assertThat(mqDialogmeldingerProperties.getQueuename()).isEqualTo("DIALOGMELDINGER");
         soft.assertThat(mqEiaQueueMottakInboundProperties.getQueuename()).isEqualTo("EIA_QUEUE_MOTTAK_INBOUND");
         soft.assertThat(mqEiaQueueMottakOutboundProperties.getQueuename()).isEqualTo("EIA_QUEUE_MOTTAK_OUTBOUND");
+        soft.assertThat(mqEiaQueueMottakMeldingOutboundProperties.getQueuename()).isEqualTo("EIA_QUEUE_MOTTAK_MELDING_OUTBOUND");
         soft.assertThat(mqGatewayProperties.getName()).isEqualTo("NAME");
         soft.assertThat(mqGatewayProperties.getHostname()).isEqualTo("HOSTNAME");
         soft.assertThat(mqGatewayProperties.getPort()).isEqualTo(1000);

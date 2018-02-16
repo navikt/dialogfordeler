@@ -2,6 +2,8 @@ package no.nav.syfo.util;
 
 import no.kith.xmlstds.base64container.XMLBase64Container;
 import no.kith.xmlstds.msghead._2006_05_24.XMLMsgHead;
+import no.trygdeetaten.xml.eiff._1.XMLEIFellesformat;
+import no.trygdeetaten.xml.eiff._1.XMLMottakenhetBlokk;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -16,25 +18,29 @@ import static javax.xml.bind.Marshaller.*;
 
 public final class JAXB {
 
-    private static final JAXBContext HODEMELDING_CONTEXT;
+    private static final JAXBContext MELDING_CONTEXT;
 
     static {
         try {
-            HODEMELDING_CONTEXT = newInstance(
+            MELDING_CONTEXT = newInstance(
+                    XMLEIFellesformat.class,
+                    XMLMottakenhetBlokk.class,
                     XMLMsgHead.class,
                     no.kith.xmlstds.dialog._2006_10_11.XMLDialogmelding.class,
                     no.kith.xmlstds.dialog._2013_01_23.XMLDialogmelding.class,
-                    XMLBase64Container.class
+                    XMLBase64Container.class,
+                    no.kith.xmlstds.apprec._2004_11_21.XMLAppRec.class,
+                    no.kith.xmlstds.apprec._2012_02_15.XMLAppRec.class
             );
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static String marshallHodemelding(Object element) {
+    public static String marshallMelding(Object element) {
         try {
             StringWriter writer = new StringWriter();
-            Marshaller marshaller = HODEMELDING_CONTEXT.createMarshaller();
+            Marshaller marshaller = MELDING_CONTEXT.createMarshaller();
             marshaller.setProperty(JAXB_FORMATTED_OUTPUT, TRUE);
             marshaller.setProperty(JAXB_ENCODING, "UTF-8");
             marshaller.setProperty(JAXB_FRAGMENT, true);
@@ -46,9 +52,9 @@ public final class JAXB {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T unmarshalHodemelding(String melding) {
+    public static <T> T unmarshalMelding(String melding) {
         try {
-            return (T) HODEMELDING_CONTEXT.createUnmarshaller().unmarshal(new StringReader(melding));
+            return (T) MELDING_CONTEXT.createUnmarshaller().unmarshal(new StringReader(melding));
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }

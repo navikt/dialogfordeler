@@ -1,8 +1,7 @@
 package no.nav.syfo.consumer.mq;
 
-import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
-import no.nav.syfo.exception.DialogmeldingInboundException;
-import no.nav.syfo.service.HodemeldingRuter;
+import no.nav.syfo.exception.MeldingInboundException;
+import no.nav.syfo.service.MeldingRuter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,14 +12,14 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 public class DialogmeldingerConsumerTest {
-    private HodemeldingRuter hodemeldingRuter;
+    private MeldingRuter meldingRuter;
     private DialogmeldingerConsumer dialogmeldingerConsumer;
 
     @Before
     public void setUp() {
         dialogmeldingerConsumer = new DialogmeldingerConsumer();
-        hodemeldingRuter = mock(HodemeldingRuter.class);
-        dialogmeldingerConsumer.setHodemeldingRuter(hodemeldingRuter);
+        meldingRuter = mock(MeldingRuter.class);
+        dialogmeldingerConsumer.setMeldingRuter(meldingRuter);
     }
 
     @Test
@@ -36,10 +35,10 @@ public class DialogmeldingerConsumerTest {
                 "</mh:MsgHead>");
         dialogmeldingerConsumer.listen(mock);
 
-        verify(hodemeldingRuter).evaluer(any(Hodemelding.class));
+        verify(meldingRuter).evaluer(any(TextMessage.class));
     }
 
-    @Test(expected = DialogmeldingInboundException.class)
+    @Test(expected = MeldingInboundException.class)
     public void listenJMSException() throws Exception {
         final TextMessage mock = mock(TextMessage.class);
         when(mock.getText()).thenReturn("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -50,7 +49,7 @@ public class DialogmeldingerConsumerTest {
                 "            xsi:schemaLocation=\"http://www.kith.no/xmlstds/msghead/2006-05-24 MsgHead-v1_2.xsd\"\n" +
                 "            xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
                 "</mh:MsgHead>");
-        doThrow(JMSException.class).when(hodemeldingRuter).evaluer(any(Hodemelding.class));
+        doThrow(JMSException.class).when(meldingRuter).evaluer(any(TextMessage.class));
         dialogmeldingerConsumer.listen(mock);
     }
 }

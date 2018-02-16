@@ -9,8 +9,7 @@ public class HodemeldingXml {
     public static final int VEDLEGG = 0b10000;
 
     public static String hodemelding(int innhold) {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<mh:MsgHead xmlns:b64c=\"http://www.kith.no/xmlstds/base64container\"\n" +
+        return "<mh:MsgHead xmlns:b64c=\"http://www.kith.no/xmlstds/base64container\"\n" +
                 "            xmlns:dia=\"http://www.kith.no/xmlstds/dialog/2013-01-23\"\n" +
                 "            xmlns:dia2=\"http://www.kith.no/xmlstds/dialog/2006-10-11\"\n" +
                 "            xmlns:mh=\"http://www.kith.no/xmlstds/msghead/2006-05-24\"\n" +

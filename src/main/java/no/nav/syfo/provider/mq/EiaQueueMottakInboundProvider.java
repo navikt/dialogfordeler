@@ -1,7 +1,7 @@
 package no.nav.syfo.provider.mq;
 
 import lombok.extern.slf4j.Slf4j;
-import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
+import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.props.ToggleProperties;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -13,6 +13,9 @@ import java.util.function.Consumer;
 import static java.util.Optional.of;
 import static no.nav.syfo.util.JmsUtil.messageCreator;
 
+/**
+ * QA.T414.FS06_EIA_MELDINGER
+ */
 @Component
 @Slf4j
 public class EiaQueueMottakInboundProvider {
@@ -21,11 +24,11 @@ public class EiaQueueMottakInboundProvider {
 
     private final Consumer<Message> jmsSender = message -> jmsEiaQueueMottakInbound.send(messageCreator(message));
 
-    public void sendTilEia(Hodemelding hodemelding) {
+    public void sendTilEia(Fellesformat fellesformat) {
         log.info("Sendt til eia");
         if (toggleProperties.isLeggMeldingerPaKo()) {
-            of(hodemelding)
-                    .map(Hodemelding::getTextMessage)
+            of(fellesformat)
+                    .map(Fellesformat::getTextMessage)
                     .ifPresent(jmsSender);
         }
     }

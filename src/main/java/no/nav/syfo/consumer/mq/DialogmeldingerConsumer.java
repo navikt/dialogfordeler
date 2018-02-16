@@ -1,9 +1,8 @@
 package no.nav.syfo.consumer.mq;
 
 import lombok.extern.slf4j.Slf4j;
-import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
-import no.nav.syfo.exception.DialogmeldingInboundException;
-import no.nav.syfo.service.HodemeldingRuter;
+import no.nav.syfo.exception.MeldingInboundException;
+import no.nav.syfo.service.MeldingRuter;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ import static no.nav.modig.common.MDCOperations.*;
 @Component
 @Slf4j
 public class DialogmeldingerConsumer {
-    private HodemeldingRuter hodemeldingRuter;
+    private MeldingRuter meldingRuter;
 
     @JmsListener(id = "dialogmeldinger_listener", containerFactory = "jmsListenerContainerFactory", destination = "dialogmeldingerQueue")
     public void listen(Object message) {
@@ -25,15 +24,15 @@ public class DialogmeldingerConsumer {
         TextMessage textMessage = (TextMessage) message;
         try {
             ofNullable(textMessage.getStringProperty("callId")).ifPresent(callId -> putToMDC(MDC_CALL_ID, callId));
-            hodemeldingRuter.evaluer(new Hodemelding(textMessage));
+            meldingRuter.evaluer(textMessage);
         } catch (JMSException e) {
             log.error("Feil ved lesing av melding", e);
-            throw new DialogmeldingInboundException("Feil ved lesing av melding", e);
+            throw new MeldingInboundException("Feil ved lesing av melding", e);
         }
     }
 
     @Inject
-    public void setHodemeldingRuter(HodemeldingRuter hodemeldingRuter) {
-        this.hodemeldingRuter = hodemeldingRuter;
+    public void setMeldingRuter(MeldingRuter meldingRuter) {
+        this.meldingRuter = meldingRuter;
     }
 }

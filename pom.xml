@@ -55,10 +55,13 @@
         <wmq.version>7.0</wmq.version>
         <!--MQ Spring-->
         <spring-jms.version>5.0.2.RELEASE</spring-jms.version>
+        <!--FELLESFORMAT-->
+        <fellesformat.version>1.0-SNAPSHOT</fellesformat.version>
         <!--KITH-->
         <digisyfo-kith-hodemelding.version>1.0.0</digisyfo-kith-hodemelding.version>
         <digisyfo-kith-dialogmelding.version>1.0.0</digisyfo-kith-dialogmelding.version>
         <digisyfo-kith-base64.version>1.0.0</digisyfo-kith-base64.version>
+        <digisyfo-kith-apprec.version>1.0.0-SNAPSHOT</digisyfo-kith-apprec.version>
         <!--TEST-->
         <junit.version>4.12</junit.version>
         <mockito-all.version>1.10.19</mockito-all.version>
@@ -185,6 +188,13 @@
             <version>${spring-jms.version}</version>
         </dependency>
 
+        <!--FELLESFORMAT-->
+        <dependency>
+            <groupId>no.nav.syfo.tjenester</groupId>
+            <artifactId>fellesformat</artifactId>
+            <version>${fellesformat.version}</version>
+        </dependency>
+
         <!--KITH-->
         <dependency>
             <groupId>no.nav.sbl</groupId>
@@ -200,6 +210,11 @@
             <groupId>no.nav.sbl</groupId>
             <artifactId>digisyfo-kith-base64</artifactId>
             <version>${digisyfo-kith-base64.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>no.nav.sbl</groupId>
+            <artifactId>digisyfo-kith-apprec</artifactId>
+            <version>${digisyfo-kith-apprec.version}</version>
         </dependency>
 
         <!--TEST-->

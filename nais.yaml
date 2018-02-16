@@ -23,36 +23,13 @@ fasitResources:
     resourceType: queueManager
   - alias: dialogfordeler_channel
     resourceType: channel
-  - alias: "dialogfordeler_dialogmeldinger"
+  - alias: "dialogfordeler_dialogmeldinger" #QA.T1_DIALOGFORDELER.DIALOGMELDINGER
     resourceType: queue
-  - alias: "eia_queue_mottak_inbound"
+  - alias: "eia_queue_mottak_inbound" #QA.T414.FS06_EIA_MELDINGER
     resourceType: queue
-  - alias: "eia_queue_mottak_outbound"
+  - alias: "eia_queue_mottak_outbound" #QA.T414.IU03_KVITTERING
     resourceType: queue
-#  - alias: VarselInfo_v1
-#    resourceType: restservice
-#  - alias: Aktoer_v2
-#    resourceType: webserviceendpoint
-#  - alias: "virksomhet:DigitalKontakinformasjon_v1"
-#    resourceType: webserviceendpoint
-#  - alias: HentPaaloggingsnivaa_V1
-#    resourceType: restservice
-#  - alias: "abac.pdp.endpoint"
-#    resourceType: restservice
-#  - alias: srvvarseloppgave
-#    resourceType: credential
-#  - alias: srvvarseloppgave_cert
-#    resourceType: certificate
-#  - alias: app_truststore
-#    resourceType: certificate
+  - alias: "eia_queue_mottak_melding_outbound" #QA.Q414.IU03_UTSENDING
+    resourceType: queue
   - alias: dialogfordelerProperties
     resourceType: applicationproperties
-#  exposed:
-#  - alias: Varseloppgave_v1
-#    resourceType: webserviceendpoint
-#    path: /services/varseloppgave/v1
-#    wsdlGroupId: no.nav.tjenester.virksomhet.dokument
-#    wsdlArtifactId: varseloppgave-v1-tjenestespesifikasjon
-#    wsdlVersion: 1.1.0
-#    securityToken: SAML
-#    description: Koordinerer bestilling av henvendelse om oppgave og varsel med handling

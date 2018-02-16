@@ -25,16 +25,17 @@ import javax.jms.Queue;
 public class JmsConfig {
     private static final int UTF_8_WITH_PUA = 1208;
 
+    /**
+     * QA.T1_DIALOGFORDELER.DIALOGMELDINGER
+     */
     @Bean
     public Queue dialogmeldingerQueue(MqDialogmeldingerProperties queue) throws JMSException {
         return new MQQueue(queue.getQueuename());
     }
 
-    @Bean
-    public Queue eiaQueueMottakInbound(MqEiaQueueMottakInboundProperties queue) throws JMSException {
-        return new MQQueue(queue.getQueuename());
-    }
-
+    /**
+     * QA.T414.FS06_EIA_MELDINGER
+     */
     @Bean
     public JmsTemplate jmsEiaQueueMottakInbound(Queue eiaQueueMottakInbound, ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
@@ -44,7 +45,39 @@ public class JmsConfig {
     }
 
     @Bean
+    public Queue eiaQueueMottakInbound(MqEiaQueueMottakInboundProperties queue) throws JMSException {
+        return new MQQueue(queue.getQueuename());
+    }
+
+    /**
+     * QA.T414.IU03_KVITTERING
+     */
+    @Bean
+    public JmsTemplate jmsEiaQueueMottakOutbound(Queue eiaQueueMottakOutbound, ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setDefaultDestination(eiaQueueMottakOutbound);
+        jmsTemplate.setConnectionFactory(connectionFactory);
+        return jmsTemplate;
+    }
+
+    @Bean
     public Queue eiaQueueMottakOutbound(MqEiaQueueMottakOutboundProperties queue) throws JMSException {
+        return new MQQueue(queue.getQueuename());
+    }
+
+    /**
+     * QA.Q414.IU03_UTSENDING
+     */
+    @Bean
+    public JmsTemplate jmsEiaQueueMottakMeldingOutbound(Queue eiaQueueMottakMeldingOutbound, ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setDefaultDestination(eiaQueueMottakMeldingOutbound);
+        jmsTemplate.setConnectionFactory(connectionFactory);
+        return jmsTemplate;
+    }
+
+    @Bean
+    public Queue eiaQueueMottakMeldingOutbound(MqEiaQueueMottakMeldingOutboundProperties queue) throws JMSException {
         return new MQQueue(queue.getQueuename());
     }
 

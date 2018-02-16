@@ -12,21 +12,20 @@ import java.util.function.Consumer;
 import static no.nav.syfo.util.JmsUtil.messageCreator;
 
 /**
- * QA.T414.IU03_KVITTERING
+ * QA.Q414.IU03_UTSENDING
  */
 @Component
 @Slf4j
-public class EiaQueueMottakOutboundProvider {
-    private JmsTemplate jmsEiaQueueMottakOutbound;
+public class EiaQueueMottakMeldingOutboundProvider {
+    private JmsTemplate jmsEiaQueueMottakMeldingOutbound;
 
-    private final Consumer<Message> jmsSender = message -> jmsEiaQueueMottakOutbound.send(messageCreator(message));
+    private final Consumer<Message> jmsSender = message -> jmsEiaQueueMottakMeldingOutbound.send(messageCreator(message));
 
     public void sendTilEMottak(Hodemelding hodemelding) {
-
     }
 
     @Inject
-    public void setJmsEiaQueueMottakOutbound(JmsTemplate jmsEiaQueueMottakOutbound) {
-        this.jmsEiaQueueMottakOutbound = jmsEiaQueueMottakOutbound;
+    public void setJmsEiaQueueMottakMeldingOutbound(JmsTemplate jmsEiaQueueMottakMeldingOutbound) {
+        this.jmsEiaQueueMottakMeldingOutbound = jmsEiaQueueMottakMeldingOutbound;
     }
 }
