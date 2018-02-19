@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 
-import static java.util.Collections.singletonList;
+import static java.util.Collections.emptyList;
 
 @Service
 public class FellesformatRuter {
@@ -18,21 +18,18 @@ public class FellesformatRuter {
     private EiaQueueMottakInboundProvider eiaQueueMottakInboundProvider;
 
     public void evaluer(Fellesformat fellesformat) {
-        if (erSyfomelding(fellesformat)) {
+        if (erSyfoAppRec(fellesformat)) {
             fellesformat.getAppRecStream().forEach(appRecService::doSomething);
+        } else if (erSyfoHodemelding(fellesformat)) {
             fellesformat.getHodemeldingStream().forEach(hodemeldingService::doSomething);
         } else {
             eiaQueueMottakInboundProvider.sendTilEia(fellesformat);
         }
     }
 
-    private boolean erSyfomelding(Fellesformat fellesformat) {
-        return erSyfoHodemelding(fellesformat) || erSyfoAppRec(fellesformat);
-    }
-
     private boolean erSyfoHodemelding(Fellesformat fellesformat) {
         //TODO: Må sjekke en eller annen liste...
-        List<String> enEllerAnnenListe = singletonList("dokidnotat");
+        List<String> enEllerAnnenListe = emptyList();
         return fellesformat
                 .getHodemeldingStream()
                 .flatMap(Hodemelding::getDokIdNotatStream)
@@ -41,7 +38,7 @@ public class FellesformatRuter {
 
     private boolean erSyfoAppRec(Fellesformat fellesformat) {
         //TODO: Må sjekke en eller annen liste...
-        List<String> enEllerAnnenListe = singletonList("enellera-nnen-uuid-elle-rnoesåntnoe!");
+        List<String> enEllerAnnenListe = emptyList();
         return fellesformat
                 .getAppRecStream()
                 .map(AppRec::originalMessageId)
