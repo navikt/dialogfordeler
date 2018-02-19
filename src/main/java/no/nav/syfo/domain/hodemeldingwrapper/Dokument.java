@@ -52,7 +52,7 @@ public class Dokument {
         return !vedleggListe.isEmpty();
     }
 
-    public Stream<String> getDokIdNotatListe() {
+    public Stream<String> getDokIdNotatStream() {
         return dialogmeldingListe.stream().flatMap(Dialogmelding::getDokIdNotatStream);
     }
 }

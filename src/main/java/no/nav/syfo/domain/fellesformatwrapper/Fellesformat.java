@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static java.util.Collections.emptyList;
+
 public class Fellesformat {
     private TextMessage textMessage;
     private XMLEIFellesformat fellesformat;
@@ -54,5 +56,21 @@ public class Fellesformat {
 
     public TextMessage getTextMessage() {
         return textMessage;
+    }
+
+    public boolean erSyfoHodemelding() {
+        //TODO: Må sjekke en eller annen liste...
+        List<String> enEllerAnnenListe = emptyList();
+        return getHodemeldingStream()
+                .flatMap(Hodemelding::getDokIdNotatStream)
+                .anyMatch(enEllerAnnenListe::contains);
+    }
+
+    public boolean erSyfoAppRec() {
+        //TODO: Må sjekke en eller annen liste...
+        List<String> enEllerAnnenListe = emptyList();
+        return getAppRecStream()
+                .map(AppRec::originalMessageId)
+                .anyMatch(enEllerAnnenListe::contains);
     }
 }

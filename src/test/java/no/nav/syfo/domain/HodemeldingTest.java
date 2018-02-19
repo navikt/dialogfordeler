@@ -1,30 +1,28 @@
 package no.nav.syfo.domain;
 
+import no.kith.xmlstds.base64container.XMLBase64Container;
+import no.kith.xmlstds.dialog._2006_10_11.XMLDialogmelding;
+import no.kith.xmlstds.dialog._2006_10_11.XMLForesporsel;
+import no.kith.xmlstds.dialog._2006_10_11.XMLNotat;
+import no.kith.xmlstds.msghead._2006_05_24.XMLDocument;
 import no.kith.xmlstds.msghead._2006_05_24.XMLMsgHead;
+import no.kith.xmlstds.msghead._2006_05_24.XMLRefDoc;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
-import no.nav.syfo.util.JAXB;
-import no.trygdeetaten.xml.eiff._1.XMLEIFellesformat;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 
-import javax.jms.TextMessage;
-
 import static java.util.stream.Collectors.toList;
-import static no.nav.syfo.testdata.FellesformatXml.fellesformat;
-import static no.nav.syfo.testdata.HodemeldingXml.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class HodemeldingTest {
 
     @Test
     public void erForesporsel() throws Exception {
-        TextMessage textMessage = mock(TextMessage.class);
-        String melding = fellesformat(hodemelding(DIALOG0));
-        when(textMessage.getText()).thenReturn(melding);
-        XMLEIFellesformat fellesformat = JAXB.unmarshalMelding(melding);
-        Hodemelding hodemelding = new Hodemelding((XMLMsgHead) fellesformat.getAny().get(0));
+        XMLMsgHead xmlMsgHead = new XMLMsgHead()
+                .withDocument(new XMLDocument().withRefDoc(new XMLRefDoc()
+                        .withContent(new XMLRefDoc.Content().withAny(new XMLDialogmelding()
+                                .withForesporsel(new XMLForesporsel())))));
+        Hodemelding hodemelding = new Hodemelding(xmlMsgHead);
 
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(hodemelding.erForesporsel()).isTrue();
@@ -35,11 +33,11 @@ public class HodemeldingTest {
 
     @Test
     public void erNotat() throws Exception {
-        TextMessage textMessage = mock(TextMessage.class);
-        String melding = fellesformat(hodemelding(NOTAT1));
-        when(textMessage.getText()).thenReturn(melding);
-        XMLEIFellesformat fellesformat = JAXB.unmarshalMelding(melding);
-        Hodemelding hodemelding = new Hodemelding((XMLMsgHead) fellesformat.getAny().get(0));
+        XMLMsgHead xmlMsgHead = new XMLMsgHead()
+                .withDocument(new XMLDocument().withRefDoc(new XMLRefDoc()
+                        .withContent(new XMLRefDoc.Content().withAny(new XMLDialogmelding()
+                                .withNotat(new XMLNotat())))));
+        Hodemelding hodemelding = new Hodemelding(xmlMsgHead);
 
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(hodemelding.erNotat()).isTrue();
@@ -50,11 +48,10 @@ public class HodemeldingTest {
 
     @Test
     public void harVedlegg() throws Exception {
-        TextMessage textMessage = mock(TextMessage.class);
-        String melding = fellesformat(hodemelding(VEDLEGG));
-        when(textMessage.getText()).thenReturn(melding);
-        XMLEIFellesformat fellesformat = JAXB.unmarshalMelding(melding);
-        Hodemelding hodemelding = new Hodemelding((XMLMsgHead) fellesformat.getAny().get(0));
+        XMLMsgHead xmlMsgHead = new XMLMsgHead()
+                .withDocument(new XMLDocument().withRefDoc(new XMLRefDoc()
+                        .withContent(new XMLRefDoc.Content().withAny(new XMLBase64Container()))));
+        Hodemelding hodemelding = new Hodemelding(xmlMsgHead);
 
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(hodemelding.harVedlegg()).isTrue();
@@ -65,13 +62,16 @@ public class HodemeldingTest {
 
     @Test
     public void getDokIdNotatStream() throws Exception {
-        TextMessage textMessage = mock(TextMessage.class);
-        String melding = fellesformat(hodemelding(NOTAT0 | NOTAT1));
-        when(textMessage.getText()).thenReturn(melding);
-        XMLEIFellesformat fellesformat = JAXB.unmarshalMelding(melding);
-        Hodemelding hodemelding = new Hodemelding((XMLMsgHead) fellesformat.getAny().get(0));
+        XMLMsgHead xmlMsgHead = new XMLMsgHead()
+                .withDocument(new XMLDocument().withRefDoc(new XMLRefDoc()
+                        .withContent(new XMLRefDoc.Content().withAny(
+                                new XMLDialogmelding().withNotat(
+                                        new XMLNotat().withDokIdNotat("DokIdNotat1")),
+                                new XMLDialogmelding().withNotat(
+                                        new XMLNotat().withDokIdNotat("DokIdNotat2"))))));
+        Hodemelding hodemelding = new Hodemelding(xmlMsgHead);
 
         assertThat(hodemelding.getDokIdNotatStream().collect(toList())).hasSize(2)
-                .containsExactly("dokidnotat1_0", "dokidnotat1_1");
+                .containsExactly("DokIdNotat1", "DokIdNotat2");
     }
 }

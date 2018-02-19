@@ -65,13 +65,13 @@ public class DokumentTest {
     }
 
     @Test
-    public void getDokIdNotatListe() {
+    public void getDokIdNotatStream() {
         Dokument dokument = new Dokument(new XMLDocument().withRefDoc(new XMLRefDoc().withContent(
                 new XMLRefDoc.Content().withAny(
                         new no.kith.xmlstds.dialog._2006_10_11.XMLDialogmelding().withNotat(
                                 new no.kith.xmlstds.dialog._2006_10_11.XMLNotat().withDokIdNotat("DokIdNotat1_0")),
                         new no.kith.xmlstds.dialog._2013_01_23.XMLDialogmelding().withNotat(
                                 new no.kith.xmlstds.dialog._2013_01_23.XMLNotat().withDokIdNotat("DokIdNotat1_1"))))));
-        assertThat(dokument.getDokIdNotatListe()).hasSize(2).containsExactly("DokIdNotat1_0", "DokIdNotat1_1");
+        assertThat(dokument.getDokIdNotatStream()).hasSize(2).containsExactly("DokIdNotat1_0", "DokIdNotat1_1");
     }
 }

@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static java.util.stream.Stream.empty;
 import static java.util.stream.Stream.of;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -28,12 +27,9 @@ public class FellesformatRuterTest {
 
     @Test
     public void evaluerErSyfoHodemelding() {
-        Hodemelding hodemelding = mock(Hodemelding.class);
-        when(hodemelding.getDokIdNotatStream()).thenReturn(of("dokidnotat"));
-
         Fellesformat fellesformat = mock(Fellesformat.class);
-        when(fellesformat.getHodemeldingStream()).thenAnswer(i -> of(hodemelding));
-        when(fellesformat.getAppRecStream()).thenAnswer(i -> empty());
+        when(fellesformat.getHodemeldingStream()).thenAnswer(i -> of(mock(Hodemelding.class)));
+        when(fellesformat.erSyfoHodemelding()).thenReturn(true);
 
         fellesformatRuter.evaluer(fellesformat);
 
@@ -44,12 +40,9 @@ public class FellesformatRuterTest {
 
     @Test
     public void evaluerErSyfoAppRec() {
-        AppRec appRec = mock(AppRec.class);
-        when(appRec.originalMessageId()).thenReturn("enellera-nnen-uuid-elle-rnoesåntnoe!");
-
         Fellesformat fellesformat = mock(Fellesformat.class);
-        when(fellesformat.getAppRecStream()).thenAnswer(i -> of(appRec));
-        when(fellesformat.getHodemeldingStream()).thenAnswer(i -> empty());
+        when(fellesformat.getAppRecStream()).thenAnswer(i -> of(mock(AppRec.class)));
+        when(fellesformat.erSyfoAppRec()).thenReturn(true);
 
         fellesformatRuter.evaluer(fellesformat);
 
@@ -60,12 +53,7 @@ public class FellesformatRuterTest {
 
     @Test
     public void evaluerErEiamelding() {
-        Hodemelding hodemelding = mock(Hodemelding.class);
-        when(hodemelding.getDokIdNotatStream()).thenReturn(of("eiaDokidnotat"));
-
         Fellesformat fellesformat = mock(Fellesformat.class);
-        when(fellesformat.getAppRecStream()).thenAnswer(i -> empty());
-        when(fellesformat.getHodemeldingStream()).thenAnswer(i -> empty());
 
         fellesformatRuter.evaluer(fellesformat);
 

@@ -46,6 +46,6 @@ public class Hodemelding {
     }
 
     public Stream<String> getDokIdNotatStream() {
-        return dokumentListe.stream().flatMap(Dokument::getDokIdNotatListe);
+        return dokumentListe.stream().flatMap(Dokument::getDokIdNotatStream);
     }
 }
