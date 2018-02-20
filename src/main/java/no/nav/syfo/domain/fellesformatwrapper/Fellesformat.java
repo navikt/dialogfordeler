@@ -58,6 +58,14 @@ public class Fellesformat {
         return textMessage;
     }
 
+    public boolean erHodemelding() {
+        return getHodemeldingStream().count() > 0;
+    }
+
+    public boolean erAppRec() {
+        return getAppRecStream().count() > 0;
+    }
+
     public boolean erSyfoHodemelding() {
         //TODO: Må sjekke en eller annen liste...
         List<String> enEllerAnnenListe = emptyList();
