@@ -27,7 +27,14 @@ public class EiaQueueMottakInboundProvider {
     private final Consumer<Message> jmsSender = message -> jmsEiaQueueMottakInbound.send(messageCreator(message));
 
     public void sendTilEia(Fellesformat fellesformat) {
-        log.info("Sendt til eia");
+        if (fellesformat.erSyfoAppRec()) {
+            log.info("Sender AppRec til eia");
+        } else if (fellesformat.erSyfoHodemelding()) {
+            log.info("Sender Hodemelding til eia");
+        } else {
+            log.info("Sender ukjent melding til eia");
+        }
+
         if (leggMeldingerPaKo) {
             of(fellesformat)
                     .map(Fellesformat::getTextMessage)
