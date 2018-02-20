@@ -27,12 +27,10 @@ public class JmsConfig {
 
     @Value("${DIALOGFORDELER_DIALOGMELDINGER_QUEUENAME}")
     private String dialogmeldingerQueuename;
-    @Value("${EIA_QUEUE_MOTTAK_INBOUND_QUEUENAME}")
-    private String mottakInboundQueuename;
-    @Value("${EIA_QUEUE_MOTTAK_OUTBOUND_QUEUENAME}")
-    private String mottakOutboundQueuename;
-    @Value("${EIA_QUEUE_MOTTAK_MELDING_OUTBOUND_QUEUENAME}")
-    private String mottakMeldingOutboundQueuename;
+    @Value("${MOTTAK_QUEUE_EIA2_MELDINGER_QUEUENAME}")
+    private String mottakQueueEia2MeldingerQueuename;
+    @Value("${MOTTAK_QUEUE_UTSENDING_QUEUENAME}")
+    private String mottakQueueUtsendingQueuename;
     @Value("${DIALOGFORDELER_CHANNEL_NAME}")
     private String channelName;
     @Value("${MQGATEWAY03_HOSTNAME}")
@@ -58,48 +56,32 @@ public class JmsConfig {
      * QA.T414.FS06_EIA_MELDINGER
      */
     @Bean
-    public JmsTemplate jmsEiaQueueMottakInbound(Queue eiaQueueMottakInbound, ConnectionFactory connectionFactory) {
+    public JmsTemplate jmsMottakQueueEia2Meldinger(Queue mottakQueueEia2Meldinger, ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setDefaultDestination(eiaQueueMottakInbound);
+        jmsTemplate.setDefaultDestination(mottakQueueEia2Meldinger);
         jmsTemplate.setConnectionFactory(connectionFactory);
         return jmsTemplate;
     }
 
     @Bean
-    public Queue eiaQueueMottakInbound() throws JMSException {
-        return new MQQueue(mottakInboundQueuename);
-    }
-
-    /**
-     * QA.T414.IU03_KVITTERING
-     */
-    @Bean
-    public JmsTemplate jmsEiaQueueMottakOutbound(Queue eiaQueueMottakOutbound, ConnectionFactory connectionFactory) {
-        JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setDefaultDestination(eiaQueueMottakOutbound);
-        jmsTemplate.setConnectionFactory(connectionFactory);
-        return jmsTemplate;
-    }
-
-    @Bean
-    public Queue eiaQueueMottakOutbound() throws JMSException {
-        return new MQQueue(mottakOutboundQueuename);
+    public Queue mottakQueueEia2Meldinger() throws JMSException {
+        return new MQQueue(mottakQueueEia2MeldingerQueuename);
     }
 
     /**
      * QA.Q414.IU03_UTSENDING
      */
     @Bean
-    public JmsTemplate jmsEiaQueueMottakMeldingOutbound(Queue eiaQueueMottakMeldingOutbound, ConnectionFactory connectionFactory) {
+    public JmsTemplate jmsMottakQueueUtsending(Queue mottakQueueUtsending, ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setDefaultDestination(eiaQueueMottakMeldingOutbound);
+        jmsTemplate.setDefaultDestination(mottakQueueUtsending);
         jmsTemplate.setConnectionFactory(connectionFactory);
         return jmsTemplate;
     }
 
     @Bean
-    public Queue eiaQueueMottakMeldingOutbound() throws JMSException {
-        return new MQQueue(mottakMeldingOutboundQueuename);
+    public Queue mottakQueueUtsending() throws JMSException {
+        return new MQQueue(mottakQueueUtsendingQueuename);
     }
 
     @Bean

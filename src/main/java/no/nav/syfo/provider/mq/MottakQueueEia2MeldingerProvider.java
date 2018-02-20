@@ -18,13 +18,13 @@ import static no.nav.syfo.util.JmsUtil.messageCreator;
  */
 @Component
 @Slf4j
-public class EiaQueueMottakInboundProvider {
-    private JmsTemplate jmsEiaQueueMottakInbound;
+public class MottakQueueEia2MeldingerProvider {
+    private JmsTemplate jmsMottakQueueEia2Meldinger;
 
     @Value("${TOGGLE_LEGG_MELDINGER_PA_KO}")
     private boolean leggMeldingerPaKo;
 
-    private final Consumer<Message> jmsSender = message -> jmsEiaQueueMottakInbound.send(messageCreator(message));
+    private final Consumer<Message> jmsSender = message -> jmsMottakQueueEia2Meldinger.send(messageCreator(message));
 
     public void sendTilEia(Fellesformat fellesformat) {
         if (fellesformat.erAppRec()) {
@@ -43,7 +43,7 @@ public class EiaQueueMottakInboundProvider {
     }
 
     @Inject
-    public void setJmsEiaQueueMottakInbound(JmsTemplate jmsEiaQueueMottakInbound) {
-        this.jmsEiaQueueMottakInbound = jmsEiaQueueMottakInbound;
+    public void setJmsMottakQueueEia2Meldinger(JmsTemplate jmsMottakQueueEia2Meldinger) {
+        this.jmsMottakQueueEia2Meldinger = jmsMottakQueueEia2Meldinger;
     }
 }

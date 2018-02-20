@@ -16,16 +16,16 @@ import static no.nav.syfo.util.JmsUtil.messageCreator;
  */
 @Component
 @Slf4j
-public class EiaQueueMottakMeldingOutboundProvider {
-    private JmsTemplate jmsEiaQueueMottakMeldingOutbound;
+public class MottakQueueUtsendingProvider {
+    private JmsTemplate jmsMottakQueueUtsending;
 
-    private final Consumer<Message> jmsSender = message -> jmsEiaQueueMottakMeldingOutbound.send(messageCreator(message));
+    private final Consumer<Message> jmsSender = message -> jmsMottakQueueUtsending.send(messageCreator(message));
 
     public void sendTilEMottak(Hodemelding hodemelding) {
     }
 
     @Inject
-    public void setJmsEiaQueueMottakMeldingOutbound(JmsTemplate jmsEiaQueueMottakMeldingOutbound) {
-        this.jmsEiaQueueMottakMeldingOutbound = jmsEiaQueueMottakMeldingOutbound;
+    public void setJmsMottakQueueUtsending(JmsTemplate jmsMottakQueueUtsending) {
+        this.jmsMottakQueueUtsending = jmsMottakQueueUtsending;
     }
 }

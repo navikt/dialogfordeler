@@ -1,7 +1,7 @@
 package no.nav.syfo.service;
 
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
-import no.nav.syfo.provider.mq.EiaQueueMottakInboundProvider;
+import no.nav.syfo.provider.mq.MottakQueueEia2MeldingerProvider;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 public class FellesformatRuter {
     private HodemeldingService hodemeldingService;
     private AppRecService appRecService;
-    private EiaQueueMottakInboundProvider eiaQueueMottakInboundProvider;
+    private MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider;
 
     public void evaluer(Fellesformat fellesformat) {
         if (fellesformat.erSyfoAppRec()) {
@@ -18,7 +18,7 @@ public class FellesformatRuter {
         } else if (fellesformat.erSyfoHodemelding()) {
             fellesformat.getHodemeldingStream().forEach(hodemeldingService::doSomething);
         } else {
-            eiaQueueMottakInboundProvider.sendTilEia(fellesformat);
+            mottakQueueEia2MeldingerProvider.sendTilEia(fellesformat);
         }
     }
 
@@ -33,7 +33,7 @@ public class FellesformatRuter {
     }
 
     @Inject
-    public void setEiaQueueMottakInboundProvider(EiaQueueMottakInboundProvider eiaQueueMottakInboundProvider) {
-        this.eiaQueueMottakInboundProvider = eiaQueueMottakInboundProvider;
+    public void setMottakQueueEia2MeldingerProvider(MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider) {
+        this.mottakQueueEia2MeldingerProvider = mottakQueueEia2MeldingerProvider;
     }
 }

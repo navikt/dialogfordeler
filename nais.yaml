@@ -34,11 +34,9 @@ fasitResources:
     resourceType: channel
   - alias: "dialogfordeler_dialogmeldinger" #QA.T1_DIALOGFORDELER.DIALOGMELDINGER
     resourceType: queue
-  - alias: "eia_queue_mottak_inbound" #QA.T414.FS06_EIA_MELDINGER
+  - alias: "mottak_queue_eia2_meldinger" #QA.T414.FS06_EIA_MELDINGER
     resourceType: queue
-  - alias: "eia_queue_mottak_outbound" #QA.T414.IU03_KVITTERING
-    resourceType: queue
-  - alias: "eia_queue_mottak_melding_outbound" #QA.Q414.IU03_UTSENDING
+  - alias: "mottak_queue_utsending" #QA.Q414.IU03_UTSENDING
     resourceType: queue
   - alias: dialogfordelerProperties
     resourceType: applicationproperties
