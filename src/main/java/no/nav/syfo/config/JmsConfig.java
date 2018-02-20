@@ -5,7 +5,7 @@ import com.ibm.mq.jms.MQXAConnectionFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
 import com.ibm.msg.client.wmq.v6.base.internal.MQC;
 import no.nav.syfo.jms.UserCredentialsXaConnectionFactoryAdapter;
-import no.nav.syfo.props.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,12 +25,33 @@ import javax.jms.Queue;
 public class JmsConfig {
     private static final int UTF_8_WITH_PUA = 1208;
 
+    @Value("${DIALOGFORDELER_DIALOGMELDINGER_QUEUENAME}")
+    private String dialogmeldingerQueuename;
+    @Value("${EIA_QUEUE_MOTTAK_INBOUND_QUEUENAME}")
+    private String mottakInboundQueuename;
+    @Value("${EIA_QUEUE_MOTTAK_OUTBOUND_QUEUENAME}")
+    private String mottakOutboundQueuename;
+    @Value("${EIA_QUEUE_MOTTAK_MELDING_OUTBOUND_QUEUENAME}")
+    private String mottakMeldingOutboundQueuename;
+    @Value("${DIALOGFORDELER_CHANNEL_NAME}")
+    private String channelName;
+    @Value("${MQGATEWAY03_HOSTNAME}")
+    private String gatewayHostname;
+    @Value("${MQGATEWAY03_NAME}")
+    private String gatewayName;
+    @Value("${MQGATEWAY03_PORT}")
+    private int gatewayPort;
+    @Value("${SRVAPPSERVER_USERNAME}")
+    private String srvAppserverUsername;
+    @Value("${SRVAPPSERVER_PASSWORD}")
+    private String srvAppserverPassword;
+
     /**
      * QA.T1_DIALOGFORDELER.DIALOGMELDINGER
      */
     @Bean
-    public Queue dialogmeldingerQueue(MqDialogmeldingerProperties queue) throws JMSException {
-        return new MQQueue(queue.getQueuename());
+    public Queue dialogmeldingerQueue() throws JMSException {
+        return new MQQueue(dialogmeldingerQueuename);
     }
 
     /**
@@ -45,8 +66,8 @@ public class JmsConfig {
     }
 
     @Bean
-    public Queue eiaQueueMottakInbound(MqEiaQueueMottakInboundProperties queue) throws JMSException {
-        return new MQQueue(queue.getQueuename());
+    public Queue eiaQueueMottakInbound() throws JMSException {
+        return new MQQueue(mottakInboundQueuename);
     }
 
     /**
@@ -61,8 +82,8 @@ public class JmsConfig {
     }
 
     @Bean
-    public Queue eiaQueueMottakOutbound(MqEiaQueueMottakOutboundProperties queue) throws JMSException {
-        return new MQQueue(queue.getQueuename());
+    public Queue eiaQueueMottakOutbound() throws JMSException {
+        return new MQQueue(mottakOutboundQueuename);
     }
 
     /**
@@ -77,8 +98,8 @@ public class JmsConfig {
     }
 
     @Bean
-    public Queue eiaQueueMottakMeldingOutbound(MqEiaQueueMottakMeldingOutboundProperties queue) throws JMSException {
-        return new MQQueue(queue.getQueuename());
+    public Queue eiaQueueMottakMeldingOutbound() throws JMSException {
+        return new MQQueue(mottakMeldingOutboundQueuename);
     }
 
     @Bean
@@ -102,20 +123,20 @@ public class JmsConfig {
     }
 
     @Bean
-    public ConnectionFactory connectionFactory(MqGatewayProperties mqGateway, MqChannelProperties mqChannel, SrvAppserverProperties srvAppserver) throws JMSException {
+    public ConnectionFactory connectionFactory() throws JMSException {
         MQXAConnectionFactory connectionFactory = new MQXAConnectionFactory();
-        connectionFactory.setHostName(mqGateway.getHostname());
-        connectionFactory.setPort(mqGateway.getPort());
-        connectionFactory.setChannel(mqChannel.getName());
-        connectionFactory.setQueueManager(mqGateway.getName());
+        connectionFactory.setHostName(gatewayHostname);
+        connectionFactory.setPort(gatewayPort);
+        connectionFactory.setChannel(channelName);
+        connectionFactory.setQueueManager(gatewayName);
         connectionFactory.setTransportType(WMQConstants.WMQ_CM_CLIENT);
         connectionFactory.setCCSID(UTF_8_WITH_PUA);
         connectionFactory.setIntProperty(WMQConstants.JMS_IBM_ENCODING, MQC.MQENC_NATIVE);
         connectionFactory.setIntProperty(WMQConstants.JMS_IBM_CHARACTER_SET, UTF_8_WITH_PUA);
         UserCredentialsXaConnectionFactoryAdapter adapter = new UserCredentialsXaConnectionFactoryAdapter();
         adapter.setTargetConnectionFactory(connectionFactory);
-        adapter.setUsername(srvAppserver.getUsername());
-        adapter.setPassword(srvAppserver.getPassword());
+        adapter.setUsername(srvAppserverUsername);
+        adapter.setPassword(srvAppserverPassword);
         return adapter;
     }
 }

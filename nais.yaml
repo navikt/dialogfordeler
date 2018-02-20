@@ -1,3 +1,4 @@
+name: dialogfordeler
 image: "docker.adeo.no:5000/syfo/dialogfordeler"
 replicas:
   min: 1
@@ -8,15 +9,23 @@ healthcheck:
   liveness:
     path: /isAlive
     initialDelay: 30
+    periodSeconds: 2
+    failureThreshold: 90
   readiness:
     path: /isReady
     initialDelay: 30
+    periodSeconds: 2
+    failureThreshold: 90
 prometheus:
   enabled: true
   path: /prometheus
 resources:
   limits:
-    cpu: 4000m
+    cpu: 1000m
+    memory: 384Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
 fasitResources:
   used:
   - alias: mqGateway03

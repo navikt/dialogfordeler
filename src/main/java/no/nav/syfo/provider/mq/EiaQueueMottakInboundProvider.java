@@ -2,7 +2,7 @@ package no.nav.syfo.provider.mq;
 
 import lombok.extern.slf4j.Slf4j;
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
-import no.nav.syfo.props.ToggleProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
@@ -20,13 +20,15 @@ import static no.nav.syfo.util.JmsUtil.messageCreator;
 @Slf4j
 public class EiaQueueMottakInboundProvider {
     private JmsTemplate jmsEiaQueueMottakInbound;
-    private ToggleProperties toggleProperties;
+
+    @Value("${TOGGLE_LEGG_MELDINGER_PA_KO}")
+    private boolean leggMeldingerPaKo;
 
     private final Consumer<Message> jmsSender = message -> jmsEiaQueueMottakInbound.send(messageCreator(message));
 
     public void sendTilEia(Fellesformat fellesformat) {
         log.info("Sendt til eia");
-        if (toggleProperties.isLeggMeldingerPaKo()) {
+        if (leggMeldingerPaKo) {
             of(fellesformat)
                     .map(Fellesformat::getTextMessage)
                     .ifPresent(jmsSender);
@@ -36,10 +38,5 @@ public class EiaQueueMottakInboundProvider {
     @Inject
     public void setJmsEiaQueueMottakInbound(JmsTemplate jmsEiaQueueMottakInbound) {
         this.jmsEiaQueueMottakInbound = jmsEiaQueueMottakInbound;
-    }
-
-    @Inject
-    public void setToggleProperties(ToggleProperties toggleProperties) {
-        this.toggleProperties = toggleProperties;
     }
 }
