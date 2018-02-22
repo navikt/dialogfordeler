@@ -28,6 +28,10 @@ resources:
     memory: 256Mi
 fasitResources:
   used:
+  - alias: isso-jwks
+    resourceType: baseurl
+  - alias: isso-issuer
+    resourceType: baseurl
   - alias: mqGateway03
     resourceType: queueManager
   - alias: dialogfordeler_channel
