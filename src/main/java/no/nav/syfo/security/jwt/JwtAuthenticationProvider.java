@@ -15,8 +15,12 @@ import java.util.Collections;
 @Component
 @Slf4j
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+    private final JwtService jwtService;
+
     @Inject
-    private JwtService jwtService;
+    public JwtAuthenticationProvider(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
 
     @Override
     public boolean supports(Class<?> authentication) {

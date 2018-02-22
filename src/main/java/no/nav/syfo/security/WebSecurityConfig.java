@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AnyRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationProvider jwtAuthenticationProvider;
 
     private JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() throws Exception {
-        JwtAuthenticationProcessingFilter filter = new JwtAuthenticationProcessingFilter(AnyRequestMatcher.INSTANCE);
+        JwtAuthenticationProcessingFilter filter = new JwtAuthenticationProcessingFilter(new AntPathRequestMatcher("/api/**"));
 
         filter.setAuthenticationManager(authenticationManager());
 
@@ -32,7 +32,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/isAlive", "/isReady").permitAll()
+                .antMatchers("/api/**").authenticated()
+                .anyRequest().denyAll()
                 .and()
                 .logout().disable()
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
