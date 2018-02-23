@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/isAlive", "/isReady").permitAll()
+                .antMatchers("/isAlive", "/isReady", "/prometheus").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .anyRequest().denyAll()
                 .and()
