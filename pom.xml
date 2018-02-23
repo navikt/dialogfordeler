@@ -47,6 +47,8 @@
         <spring-boot.version>1.5.10.RELEASE</spring-boot.version>
         <!--SPRING-->
         <spring.version>4.3.14.RELEASE</spring.version>
+        <!--DB-->
+        <ojdbc6.version>11.2.0.2.0</ojdbc6.version>
         <!--OIDC-SECURITY-->
         <oidc-security.version>2018.02.21.14.01</oidc-security.version>
         <!--LOGGING-->
@@ -69,6 +71,7 @@
         <mockito-all.version>1.10.19</mockito-all.version>
         <powermock.version>1.6.3</powermock.version>
         <assertj-core.version>3.6.2</assertj-core.version>
+        <h2.version>1.4.196</h2.version>
     </properties>
 
     <dependencies>
@@ -94,6 +97,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <!--DB-->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>${ojdbc6.version}</version>
         </dependency>
 
         <!--OIDC-SECURITY-->
@@ -271,6 +286,12 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
