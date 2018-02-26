@@ -7,7 +7,6 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import javax.jms.Message;
 import java.util.function.Consumer;
 
 import static java.util.Optional.of;
@@ -24,7 +23,7 @@ public class MottakQueueEia2MeldingerProvider {
     @Value("${TOGGLE_LEGG_MELDINGER_PA_KO}")
     private boolean leggMeldingerPaKo;
 
-    private final Consumer<Message> jmsSender = message -> jmsMottakQueueEia2Meldinger.send(messageCreator(message));
+    private final Consumer<String> jmsSender = message -> jmsMottakQueueEia2Meldinger.send(messageCreator(message));
 
     public void sendTilEia(Fellesformat fellesformat) {
         if (fellesformat.erAppRec()) {
@@ -37,7 +36,7 @@ public class MottakQueueEia2MeldingerProvider {
 
         if (leggMeldingerPaKo) {
             of(fellesformat)
-                    .map(Fellesformat::getTextMessage)
+                    .map(Fellesformat::getMessage)
                     .ifPresent(jmsSender);
         }
     }

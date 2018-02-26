@@ -1,12 +1,12 @@
 package no.nav.syfo.provider.mq;
 
 import lombok.extern.slf4j.Slf4j;
-import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import javax.jms.Message;
+import javax.validation.constraints.NotNull;
 import java.util.function.Consumer;
 
 import static no.nav.syfo.util.JmsUtil.messageCreator;
@@ -19,9 +19,16 @@ import static no.nav.syfo.util.JmsUtil.messageCreator;
 public class MottakQueueUtsendingProvider {
     private JmsTemplate jmsMottakQueueUtsending;
 
-    private final Consumer<Message> jmsSender = message -> jmsMottakQueueUtsending.send(messageCreator(message));
+    @Value("${TOGGLE_LEGG_MELDINGER_PA_KO}")
+    private boolean leggMeldingerPaKo;
 
-    public void sendTilEMottak(Hodemelding hodemelding) {
+    private final Consumer<String> jmsSender = message -> jmsMottakQueueUtsending.send(messageCreator(message));
+
+    public void sendTilEMottak(@NotNull String message) {
+        log.info("Sender melding til eMottak");
+        if (leggMeldingerPaKo) {
+            jmsSender.accept(message);
+        }
     }
 
     @Inject

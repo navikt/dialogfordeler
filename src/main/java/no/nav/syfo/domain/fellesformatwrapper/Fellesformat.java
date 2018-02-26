@@ -8,15 +8,14 @@ import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
 import no.trygdeetaten.xml.eiff._1.XMLEIFellesformat;
 import no.trygdeetaten.xml.eiff._1.XMLMottakenhetBlokk;
 
-import javax.jms.TextMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static java.util.Collections.emptyList;
+import static java.util.stream.Stream.concat;
 
 public class Fellesformat {
-    private TextMessage textMessage;
+    private String message;
     private XMLEIFellesformat fellesformat;
 
     private List<XMLMottakenhetBlokk> mottakenhetBlokkListe;
@@ -24,8 +23,12 @@ public class Fellesformat {
     private List<Hodemelding> hodemeldingListe;
     private List<AppRec> appRecListe;
 
-    public Fellesformat(TextMessage textMessage, XMLEIFellesformat fellesformat) {
-        this.textMessage = textMessage;
+    public Fellesformat(String message, XMLEIFellesformat fellesformat) {
+        this(fellesformat);
+        this.message = message;
+    }
+
+    public Fellesformat(XMLEIFellesformat fellesformat) {
         this.fellesformat = fellesformat;
 
         this.mottakenhetBlokkListe = new ArrayList<>();
@@ -54,8 +57,16 @@ public class Fellesformat {
         return appRecListe.stream();
     }
 
-    public TextMessage getTextMessage() {
-        return textMessage;
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public XMLEIFellesformat getEIFellesformat() {
+        return fellesformat;
     }
 
     public boolean erHodemelding() {
@@ -66,19 +77,9 @@ public class Fellesformat {
         return getAppRecStream().count() > 0;
     }
 
-    public boolean erSyfoHodemelding() {
-        //TODO: Må sjekke en eller annen liste...
-        List<String> enEllerAnnenListe = emptyList();
-        return getHodemeldingStream()
-                .flatMap(Hodemelding::getDokIdNotatStream)
-                .anyMatch(enEllerAnnenListe::contains);
-    }
-
-    public boolean erSyfoAppRec() {
-        //TODO: Må sjekke en eller annen liste...
-        List<String> enEllerAnnenListe = emptyList();
-        return getAppRecStream()
-                .map(AppRec::originalMessageId)
-                .anyMatch(enEllerAnnenListe::contains);
+    public Stream<String> meldingIdStream() {
+        return concat(
+                getHodemeldingStream().flatMap(Hodemelding::getDokIdNotatStream),
+                getAppRecStream().map(AppRec::originalMessageId));
     }
 }

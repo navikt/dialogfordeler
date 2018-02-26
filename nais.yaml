@@ -27,6 +27,10 @@ resources:
     cpu: 100m
     memory: 256Mi
 fasitResources:
+  exposed:
+  - alias: dialogfordelerApi
+    resourceType: restservice
+    path: /api
   used:
   - alias: isso-jwks
     resourceType: baseurl
