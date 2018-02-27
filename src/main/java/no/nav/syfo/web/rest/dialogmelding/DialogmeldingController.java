@@ -19,7 +19,7 @@ public class DialogmeldingController {
     }
 
     @RequestMapping(value = "/opprett", method = POST, consumes = APPLICATION_JSON)
-    @PreAuthorize("erServicebruker()")
+    @PreAuthorize("@kontrollerServicebruker.erServicebruker(principal)")
     public void opprettDialogmelding(@RequestBody RSDialogmelding dialogmelding) {
         dialogmeldingService.registrerDialogmelding(dialogmelding);
     }

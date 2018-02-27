@@ -1,10 +1,9 @@
 package no.nav.syfo.web.rest.dialogmelding;
 
 import no.nav.syfo.config.OidcTokenValidatorConfig;
-import no.nav.syfo.security.MethodSecurityConfig;
 import no.nav.syfo.security.WebSecurityConfig;
-import no.nav.syfo.security.expression.CustomMethodExpressionHandler;
 import no.nav.syfo.security.jwt.JwtAuthenticationProvider;
+import no.nav.syfo.security.kontroller.KontrollerServicebruker;
 import no.nav.syfo.service.JwtService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +23,7 @@ import javax.inject.Inject;
 @ContextConfiguration(classes = {
         DialogmeldingController.class,
         WebSecurityConfig.class,
-        MethodSecurityConfig.class,
-        CustomMethodExpressionHandler.class,
+        KontrollerServicebruker.class,
         JwtAuthenticationProvider.class,
         JwtService.class,
         OidcTokenValidatorConfig.class
