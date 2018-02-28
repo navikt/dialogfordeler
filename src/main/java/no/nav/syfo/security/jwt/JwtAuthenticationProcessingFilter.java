@@ -31,7 +31,15 @@ public class JwtAuthenticationProcessingFilter extends AbstractAuthenticationPro
         }
 
         rawToken = rawToken.replace("Bearer", "").trim();
-        return getAuthenticationManager().authenticate(new JwtUsernamePasswordAuthenticationToken(null, rawToken));
+        String[] rawTokenSplit = rawToken.split("\\.");
+
+        if (rawTokenSplit.length < 2){
+            throw new BadCredentialsException("Invalid Authorization token");
+        }
+
+        JwtUsernamePasswordAuthenticationToken authentication = new JwtUsernamePasswordAuthenticationToken(null, rawToken);
+        authentication.setDetails(rawTokenSplit[1]);
+        return getAuthenticationManager().authenticate(authentication);
     }
 
     @Override

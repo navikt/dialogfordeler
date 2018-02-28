@@ -2,8 +2,10 @@ package no.nav.syfo.config;
 
 import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
 import io.prometheus.client.spring.web.EnablePrometheusTiming;
+import no.nav.freg.abac.spring.config.AbacConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.format.Formatter;
 
 import java.text.ParseException;
@@ -14,6 +16,7 @@ import java.util.Locale;
 @EnablePrometheusEndpoint
 @EnablePrometheusTiming
 @Configuration
+@Import(AbacConfig.class)
 public class ApplicationConfig {
     @Bean
     public Formatter<LocalDateTime> localDateTimeFormatter() {

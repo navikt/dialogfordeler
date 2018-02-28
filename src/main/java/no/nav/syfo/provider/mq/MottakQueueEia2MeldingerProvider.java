@@ -19,9 +19,14 @@ import static no.nav.syfo.util.JmsUtil.messageCreator;
 @Slf4j
 public class MottakQueueEia2MeldingerProvider {
     private JmsTemplate jmsMottakQueueEia2Meldinger;
-
-    @Value("${TOGGLE_LEGG_MELDINGER_PA_KO}")
     private boolean leggMeldingerPaKo;
+
+    public MottakQueueEia2MeldingerProvider(JmsTemplate jmsMottakQueueEia2Meldinger,
+                                            @Value("${TOGGLE_LEGG_MELDINGER_PA_KO:true}")
+                                                    boolean leggMeldingerPaKo) {
+        this.jmsMottakQueueEia2Meldinger = jmsMottakQueueEia2Meldinger;
+        this.leggMeldingerPaKo = leggMeldingerPaKo;
+    }
 
     private final Consumer<String> jmsSender = message -> jmsMottakQueueEia2Meldinger.send(messageCreator(message));
 

@@ -18,6 +18,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {
@@ -31,6 +34,8 @@ import javax.inject.Inject;
 public class DialogmeldingControllerSecurityTest {
     @MockBean
     private DialogmeldingService dialogmeldingService;
+    @MockBean
+    private KontrollerServicebruker kontrollerServicebruker;
     @Inject
     private DialogmeldingController dialogmeldingController;
 
@@ -43,6 +48,7 @@ public class DialogmeldingControllerSecurityTest {
     @Test
     @WithMockUser(username = "srvTest")
     public void apiAuthenticated() throws Exception {
+        when(kontrollerServicebruker.erServicebruker(any())).thenReturn(true);
         dialogmeldingController.opprettDialogmelding(null);
     }
 

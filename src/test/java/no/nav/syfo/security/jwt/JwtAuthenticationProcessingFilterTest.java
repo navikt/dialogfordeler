@@ -33,14 +33,14 @@ public class JwtAuthenticationProcessingFilterTest {
     @Test
     public void attemptAuthenticationRemoveBearerPrefix() throws Exception {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader("Authorization")).thenReturn("Bearer Token");
+        when(request.getHeader("Authorization")).thenReturn("Bearer TokenHeader.TokenBody");
 
         filter.attemptAuthentication(request, null);
 
         ArgumentCaptor<JwtUsernamePasswordAuthenticationToken> captor = ArgumentCaptor.forClass(JwtUsernamePasswordAuthenticationToken.class);
         verify(authenticationManager).authenticate(captor.capture());
 
-        assertThat(captor.getValue().getCredentials()).isEqualTo("Token");
+        assertThat(captor.getValue().getCredentials()).isEqualTo("TokenHeader.TokenBody");
     }
 
     @Test(expected = BadCredentialsException.class)
@@ -53,7 +53,15 @@ public class JwtAuthenticationProcessingFilterTest {
     @Test(expected = BadCredentialsException.class)
     public void attemptAuthenticationMissingBearerPrefix() throws Exception {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getHeader("Authorization")).thenReturn("Token");
+        when(request.getHeader("Authorization")).thenReturn("TokenHeader.TokenBody");
+
+        filter.attemptAuthentication(request, null);
+    }
+
+    @Test(expected = BadCredentialsException.class)
+    public void attemptAuthenticationMissingTokenBody() throws Exception {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getHeader("Authorization")).thenReturn("Bearer TokenHeader");
 
         filter.attemptAuthentication(request, null);
     }

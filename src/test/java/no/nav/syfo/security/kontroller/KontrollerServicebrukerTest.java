@@ -1,29 +1,39 @@
 package no.nav.syfo.security.kontroller;
 
-import org.junit.Before;
+import no.nav.syfo.security.abac.AbacEvaluator;
 import org.junit.Test;
-import org.springframework.security.core.userdetails.User;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.security.core.Authentication;
 
-import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class KontrollerServicebrukerTest {
+    @Mock
+    private AbacEvaluator abacEvaluator;
+    @InjectMocks
     private KontrollerServicebruker kontrollerServicebruker;
-
-    @Before
-    public void setUp() throws Exception {
-        kontrollerServicebruker = new KontrollerServicebruker();
-    }
 
     @Test
     public void erServicebruker() {
-        User user = new User("srvUsername", "Password", emptyList());
-        assertThat(kontrollerServicebruker.erServicebruker(user)).isTrue();
+        Authentication authentication = mock(Authentication.class);
+        String tokenBody = "123";
+        when(authentication.getDetails()).thenReturn(tokenBody);
+        when(abacEvaluator.erServicebruker(tokenBody)).thenReturn(true);
+        assertThat(kontrollerServicebruker.erServicebruker(authentication)).isTrue();
     }
 
     @Test
     public void erIkkeServicebruker() {
-        User user = new User("username", "Password", emptyList());
-        assertThat(kontrollerServicebruker.erServicebruker(user)).isFalse();
+        Authentication authentication = mock(Authentication.class);
+        String tokenBody = "123";
+        when(authentication.getDetails()).thenReturn(tokenBody);
+        when(abacEvaluator.erServicebruker(tokenBody)).thenReturn(false);
+        assertThat(kontrollerServicebruker.erServicebruker(authentication)).isFalse();
     }
 }
