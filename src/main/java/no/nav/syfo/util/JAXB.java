@@ -2,8 +2,8 @@ package no.nav.syfo.util;
 
 import no.kith.xmlstds.base64container.XMLBase64Container;
 import no.kith.xmlstds.msghead._2006_05_24.XMLMsgHead;
-import no.trygdeetaten.xml.eiff._1.XMLEIFellesformat;
-import no.trygdeetaten.xml.eiff._1.XMLMottakenhetBlokk;
+import no.nav.xml.eiff._2.XMLEIFellesformat;
+import no.nav.xml.eiff._2.XMLMottakenhetBlokk;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

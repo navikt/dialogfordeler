@@ -62,7 +62,7 @@
         <jms.version>1.1</jms.version>
         <wmq.version>7.0</wmq.version>
         <!--FELLESFORMAT-->
-        <fellesformat.version>1.0</fellesformat.version>
+        <fellesformat.version>1.1</fellesformat.version>
         <!--KITH-->
         <kith-hodemelding.version>1.0</kith-hodemelding.version>
         <kith-dialogmelding.version>1.0</kith-dialogmelding.version>

@@ -2,7 +2,7 @@ package no.nav.syfo.domain;
 
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.util.JAXB;
-import no.trygdeetaten.xml.eiff._1.XMLEIFellesformat;
+import no.nav.xml.eiff._2.XMLEIFellesformat;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 

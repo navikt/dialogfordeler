@@ -10,7 +10,7 @@ import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.provider.mq.MottakQueueUtsendingProvider;
 import no.nav.syfo.util.JAXB;
 import no.nav.syfo.web.rest.dialogmelding.model.RSDialogmelding;
-import no.trygdeetaten.xml.eiff._1.XMLEIFellesformat;
+import no.nav.xml.eiff._2.XMLEIFellesformat;
 import org.springframework.stereotype.Service;
 
 import static no.nav.syfo.domain.enums.FellesformatType.SYFO_HODEMELDING;

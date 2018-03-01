@@ -5,8 +5,8 @@ import no.nav.syfo.domain.apprecwrapper.AppRec;
 import no.nav.syfo.domain.apprecwrapper.AppRec1_0;
 import no.nav.syfo.domain.apprecwrapper.AppRec1_1;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
-import no.trygdeetaten.xml.eiff._1.XMLEIFellesformat;
-import no.trygdeetaten.xml.eiff._1.XMLMottakenhetBlokk;
+import no.nav.xml.eiff._2.XMLEIFellesformat;
+import no.nav.xml.eiff._2.XMLMottakenhetBlokk;
 
 import java.util.ArrayList;
 import java.util.List;
