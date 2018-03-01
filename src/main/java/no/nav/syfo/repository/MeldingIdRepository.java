@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.util.Optional.empty;
+
 @Service
 @Slf4j
 public class MeldingIdRepository {
@@ -20,6 +22,10 @@ public class MeldingIdRepository {
     }
 
     public Optional<FellesformatType> finnMeldingstype(Set<String> meldingsid) {
+        if (meldingsid.isEmpty()) {
+            return empty();
+        }
+
         List<FellesformatType> list = namedParameterJdbcTemplate.query(
                 "SELECT type FROM melding WHERE melding_id IN (:ids)",
                 new MapSqlParameterSource("ids", meldingsid),
