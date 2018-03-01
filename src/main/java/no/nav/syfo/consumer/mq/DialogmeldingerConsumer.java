@@ -5,6 +5,7 @@ import no.nav.syfo.exception.MeldingInboundException;
 import no.nav.syfo.service.MeldingRuter;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.jms.JMSException;
@@ -18,6 +19,7 @@ import static no.nav.modig.common.MDCOperations.*;
 public class DialogmeldingerConsumer {
     private MeldingRuter meldingRuter;
 
+    @Transactional
     @JmsListener(id = "dialogmeldinger_listener", containerFactory = "jmsListenerContainerFactory", destination = "dialogmeldingerQueue")
     public void listen(Object message) {
         putToMDC(MDC_CALL_ID, generateCallId());

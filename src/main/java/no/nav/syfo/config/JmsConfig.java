@@ -6,12 +6,12 @@ import com.ibm.msg.client.wmq.WMQConstants;
 import com.ibm.msg.client.wmq.v6.base.internal.MQC;
 import no.nav.syfo.jms.UserCredentialsXaConnectionFactoryAdapter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jta.XAConnectionFactoryWrapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-import org.springframework.jms.connection.JmsTransactionManager;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.destination.DestinationResolver;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -95,17 +95,12 @@ public class JmsConfig {
     }
 
     @Bean
-    public PlatformTransactionManager platformTransactionManager(ConnectionFactory connectionFactory) {
-        return new JmsTransactionManager(connectionFactory);
-    }
-
-    @Bean
     public DestinationResolver destinationResolver(ApplicationContext context) {
         return (session, destinationName, pubSubDomain) -> context.getBean(destinationName, Queue.class);
     }
 
     @Bean
-    public ConnectionFactory connectionFactory() throws JMSException {
+    public ConnectionFactory connectionFactory(XAConnectionFactoryWrapper xaConnectionFactoryWrapper) throws Exception {
         MQXAConnectionFactory connectionFactory = new MQXAConnectionFactory();
         connectionFactory.setHostName(gatewayHostname);
         connectionFactory.setPort(gatewayPort);
@@ -119,6 +114,6 @@ public class JmsConfig {
         adapter.setTargetConnectionFactory(connectionFactory);
         adapter.setUsername(srvAppserverUsername);
         adapter.setPassword(srvAppserverPassword);
-        return adapter;
+        return xaConnectionFactoryWrapper.wrapConnectionFactory(adapter);
     }
 }

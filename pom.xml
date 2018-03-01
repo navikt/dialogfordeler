@@ -106,6 +106,13 @@
             <version>${spring-boot.version}</version>
         </dependency>
 
+        <!--TRANSACTIONAL-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jta-atomikos</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
         <!--DB-->
         <dependency>
             <groupId>com.oracle</groupId>
