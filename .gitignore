@@ -19,4 +19,4 @@ atlassian-ide-plugin.xml
 testDb.properties
 APP_LOG_HOME_IS_UNDEFINED
 
-application-dev.properties
+application-local.properties
