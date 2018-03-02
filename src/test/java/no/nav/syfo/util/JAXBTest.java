@@ -21,7 +21,7 @@ public class JAXBTest {
                         .withEdiLoggId("ediLoggId")));
         assertThat(hodemelding)
                 .isEqualTo("<EI_fellesformat " +
-                        "xmlns=\"http://www.trygdeetaten.no/xml/eiff/1/\" " +
+                        "xmlns=\"http://www.nav.no/xml/eiff/2/\" " +
                         "xmlns:ns6=\"http://www.kith.no/xmlstds/dialog/2013-01-23\" " +
                         "xmlns:ns5=\"http://www.kith.no/xmlstds/felleskomponent1\" " +
                         "xmlns:ns8=\"http://www.kith.no/xmlstds/apprec/2004-11-21\" " +
@@ -42,7 +42,7 @@ public class JAXBTest {
     @Test
     public void unmarshalHodemelding() {
         final XMLEIFellesformat fellesformat = JAXB.unmarshalMelding("<EI_fellesformat " +
-                "xmlns=\"http://www.trygdeetaten.no/xml/eiff/1/\" " +
+                "xmlns=\"http://www.nav.no/xml/eiff/2/\" " +
                 "xmlns:ns6=\"http://www.kith.no/xmlstds/dialog/2013-01-23\" " +
                 "xmlns:ns5=\"http://www.kith.no/xmlstds/felleskomponent1\" " +
                 "xmlns:ns8=\"http://www.kith.no/xmlstds/apprec/2004-11-21\" " +
