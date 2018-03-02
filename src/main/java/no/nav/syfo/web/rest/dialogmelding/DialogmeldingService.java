@@ -12,6 +12,7 @@ import no.nav.syfo.util.JAXB;
 import no.nav.syfo.web.rest.dialogmelding.model.RSDialogmelding;
 import no.nav.xml.eiff._2.XMLEIFellesformat;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static no.nav.syfo.domain.enums.FellesformatType.SYFO_HODEMELDING;
 
@@ -26,6 +27,7 @@ public class DialogmeldingService {
         this.mottakQueue = mottakQueue;
     }
 
+    @Transactional
     public void registrerDialogmelding(RSDialogmelding dialogmelding) {
         dialogmeldingRespository.registrerDialogmelding(dialogmelding.getMeldingId(), SYFO_HODEMELDING);
 
