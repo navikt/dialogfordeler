@@ -1,5 +1,6 @@
 package no.nav.syfo.provider.mq;
 
+import io.prometheus.client.Counter;
 import lombok.extern.slf4j.Slf4j;
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +19,15 @@ import static no.nav.syfo.util.JmsUtil.messageCreator;
 @Component
 @Slf4j
 public class MottakQueueEia2MeldingerProvider {
+    private static final String APPREC_LABEL = "AppRec Eia";
+    private static final String HODEMELDING_LABEL = "Hodemelding Eia";
+    private static final String ANNEN_MELDING_LABEL = "Annen melding Eia";
+    private static final String MELDINGSTYPE_LABELNAME = "type";
+    private static final Counter COUNTER = Counter
+            .build("mq_send_eia_meldinger", "Meldinger sendt til Eia")
+            .labelNames(MELDINGSTYPE_LABELNAME)
+            .register();
+
     private JmsTemplate jmsMottakQueueEia2Meldinger;
     private boolean leggMeldingerPaKo;
 
@@ -31,12 +41,16 @@ public class MottakQueueEia2MeldingerProvider {
     private final Consumer<String> jmsSender = message -> jmsMottakQueueEia2Meldinger.send(messageCreator(message));
 
     public void sendTilEia(Fellesformat fellesformat) {
+        String label;
         if (fellesformat.erAppRec()) {
             log.info("AppRec til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
+            label = APPREC_LABEL;
         } else if (fellesformat.erHodemelding()) {
             log.info("Hodemelding til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
+            label = HODEMELDING_LABEL;
         } else {
             log.info("ukjent melding til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
+            label = ANNEN_MELDING_LABEL;
         }
 
         if (leggMeldingerPaKo) {
@@ -44,6 +58,7 @@ public class MottakQueueEia2MeldingerProvider {
                     .map(Fellesformat::getMessage)
                     .ifPresent(jmsSender);
         }
+        COUNTER.labels(label).inc();
     }
 
     @Inject
