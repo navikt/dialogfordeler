@@ -14,8 +14,8 @@
     </prerequisites>
 
     <scm>
-        <developerConnection>scm:git:http://stash.devillo.no/scm/syfo/dialogfordeler.git</developerConnection>
-        <url>http://stash.devillo.no/projects/SYFO/repos/dialogfordeler</url>
+        <developerConnection>scm:git:https://github.com/navikt/dialogfordeler.git</developerConnection>
+        <url>https://github.com/navikt/dialogfordeler</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -27,14 +27,14 @@
 
     <distributionManagement>
         <repository>
-            <id>m2internal</id>
+            <id>maven-releases</id>
             <name>NAV Internal Repository</name>
-            <url>dav:http://maven.adeo.no/nexus/content/repositories/m2internal</url>
+            <url>https://repo.adeo.no/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>m2snapshot</id>
+            <id>maven-snapshots</id>
             <name>NAV Snapshot Repository</name>
-            <url>dav:http://maven.adeo.no/nexus/content/repositories/m2snapshot</url>
+            <url>https://repo.adeo.no/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -48,9 +48,9 @@
         <!--SPRING-->
         <spring.version>4.3.14.RELEASE</spring.version>
         <!--DB-->
-        <ojdbc6.version>11.2.0.2.0</ojdbc6.version>
+        <ojdbc8.version>12.2.0.1</ojdbc8.version>
         <!--OIDC-SECURITY-->
-        <oidc-security.version>2018.02.21.14.01</oidc-security.version>
+        <jose4j.version>0.5.0</jose4j.version>
         <!--ABAC-->
         <abac-spring.version>1.4.1</abac-spring.version>
         <!--LOGGING-->
@@ -59,15 +59,14 @@
         <!--PROMETHEUS-->
         <prometheus.version>0.0.26</prometheus.version>
         <!--MQ-->
-        <jms.version>1.1</jms.version>
-        <wmq.version>7.0</wmq.version>
+        <mq.allclient.version>9.0.4.0</mq.allclient.version>
         <!--FELLESFORMAT-->
-        <fellesformat.version>1.1</fellesformat.version>
+        <fellesformat.version>1.2</fellesformat.version>
         <!--KITH-->
-        <kith-hodemelding.version>1.0</kith-hodemelding.version>
-        <kith-dialogmelding.version>1.0</kith-dialogmelding.version>
-        <kith-base64.version>1.0</kith-base64.version>
-        <kith-apprec.version>1.0</kith-apprec.version>
+        <kith-hodemelding.version>1.1</kith-hodemelding.version>
+        <kith-dialogmelding.version>1.1</kith-dialogmelding.version>
+        <kith-base64.version>1.1</kith-base64.version>
+        <kith-apprec.version>1.1</kith-apprec.version>
         <!--TEST-->
         <junit.version>4.12</junit.version>
         <mockito-all.version>1.10.19</mockito-all.version>
@@ -116,23 +115,23 @@
         <!--DB-->
         <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>${ojdbc6.version}</version>
+            <artifactId>ojdbc8</artifactId>
+            <version>${ojdbc8.version}</version>
         </dependency>
 
         <!--OIDC-SECURITY-->
         <dependency>
-            <groupId>no.nav.dialogarena</groupId>
-            <artifactId>oidc-security</artifactId>
-            <version>${oidc-security.version}</version>
+            <groupId>org.bitbucket.b_c</groupId>
+            <artifactId>jose4j</artifactId>
+            <version>${jose4j.version}</version>
         </dependency>
 
         <!--ABAC-->
-        <dependency>
-            <groupId>no.nav.freg</groupId>
-            <artifactId>abac-spring</artifactId>
-            <version>${abac-spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>no.nav.freg</groupId>-->
+            <!--<artifactId>abac-spring</artifactId>-->
+            <!--<version>${abac-spring.version}</version>-->
+        <!--</dependency>-->
 
         <!--PROMETHEUS-->
         <dependency>
@@ -186,11 +185,6 @@
             <artifactId>logstash-logback-encoder</artifactId>
             <version>${logstash-logback-encoder.version}</version>
         </dependency>
-        <dependency>
-            <groupId>no.nav.modig</groupId>
-            <artifactId>modig-log-common</artifactId>
-            <version>${modig-log-common.version}</version>
-        </dependency>
 
         <!--LOMBOK-->
         <dependency>
@@ -200,32 +194,9 @@
 
         <!--MQ-->
         <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>jms</artifactId>
-            <version>${jms.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm</groupId>
-            <artifactId>com.ibm.mq</artifactId>
-            <version>${wmq.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm</groupId>
-            <artifactId>com.ibm.mqjms</artifactId>
-            <version>${wmq.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm</groupId>
-            <artifactId>dhbcore</artifactId>
-            <version>${wmq.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>com.ibm.mq</groupId>
-            <artifactId>jmqi</artifactId>
-            <version>${wmq.version}</version>
-            <scope>runtime</scope>
+            <artifactId>com.ibm.mq.allclient</artifactId>
+            <version>${mq.allclient.version}</version>
         </dependency>
         <!--MQ Spring-->
         <dependency>
@@ -347,7 +318,7 @@
                         <plugin>
                             <groupId>org.owasp</groupId>
                             <artifactId>dependency-check-maven</artifactId>
-                            <version>3.1.0</version>
+                            <version>3.1.1</version>
                             <configuration>
                                 <failBuildOnCVSS>8</failBuildOnCVSS>
                             </configuration>

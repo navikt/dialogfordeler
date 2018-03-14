@@ -12,7 +12,7 @@ import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
 import static java.util.Optional.ofNullable;
-import static no.nav.modig.common.MDCOperations.*;
+import static no.nav.syfo.util.MDCOperations.*;
 
 @Component
 @Slf4j

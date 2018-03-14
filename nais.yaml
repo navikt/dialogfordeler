@@ -3,7 +3,7 @@ image: "docker.adeo.no:5000/syfo/dialogfordeler"
 replicas:
   min: 1
   max: 2
-  cpuThresholdPercentage: 80
+  cpuThresholdPercentage: 800
 port: 8080
 healthcheck:
   liveness:

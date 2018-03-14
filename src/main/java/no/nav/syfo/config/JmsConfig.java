@@ -2,8 +2,6 @@ package no.nav.syfo.config;
 
 import com.ibm.mq.jms.MQQueue;
 import com.ibm.mq.jms.MQXAConnectionFactory;
-import com.ibm.msg.client.wmq.WMQConstants;
-import com.ibm.msg.client.wmq.v6.base.internal.MQC;
 import no.nav.syfo.jms.UserCredentialsXaConnectionFactoryAdapter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jta.XAConnectionFactoryWrapper;
@@ -19,6 +17,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Queue;
+
+import static com.ibm.mq.constants.CMQC.MQENC_NATIVE;
+import static com.ibm.msg.client.wmq.WMQConstants.*;
 
 @Configuration
 @EnableJms
@@ -106,10 +107,10 @@ public class JmsConfig {
         connectionFactory.setPort(gatewayPort);
         connectionFactory.setChannel(channelName);
         connectionFactory.setQueueManager(gatewayName);
-        connectionFactory.setTransportType(WMQConstants.WMQ_CM_CLIENT);
+        connectionFactory.setTransportType(WMQ_CM_CLIENT);
         connectionFactory.setCCSID(UTF_8_WITH_PUA);
-        connectionFactory.setIntProperty(WMQConstants.JMS_IBM_ENCODING, MQC.MQENC_NATIVE);
-        connectionFactory.setIntProperty(WMQConstants.JMS_IBM_CHARACTER_SET, UTF_8_WITH_PUA);
+        connectionFactory.setIntProperty(JMS_IBM_ENCODING, MQENC_NATIVE);
+        connectionFactory.setIntProperty(JMS_IBM_CHARACTER_SET, UTF_8_WITH_PUA);
         UserCredentialsXaConnectionFactoryAdapter adapter = new UserCredentialsXaConnectionFactoryAdapter();
         adapter.setTargetConnectionFactory(connectionFactory);
         adapter.setUsername(srvAppserverUsername);

@@ -1,6 +1,7 @@
 package no.nav.syfo.service;
 
-import no.nav.brukerdialog.security.oidc.OidcTokenValidator;
+import no.nav.syfo.security.oidc.OidcTokenValidator;
+import no.nav.syfo.security.oidc.OidcTokenValidatorResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,14 +21,14 @@ public class JwtServiceTest {
 
     @Test
     public void parseTokenValidToken() {
-        when(oidcTokenValidator.validate("Token")).thenReturn(OidcTokenValidator.OidcTokenValidatorResult.valid("Subject", 0));
+        when(oidcTokenValidator.validate("Token")).thenReturn(OidcTokenValidatorResult.valid("Subject", "aud"));
 
         assertThat(jwtService.parseToken("Token")).isEqualTo("Subject");
     }
 
     @Test(expected = BadCredentialsException.class)
     public void parseTokenInvalidToken() {
-        when(oidcTokenValidator.validate("Token")).thenReturn(OidcTokenValidator.OidcTokenValidatorResult.invalid("Token expired"));
+        when(oidcTokenValidator.validate("Token")).thenReturn(OidcTokenValidatorResult.invalid("Token expired"));
 
         jwtService.parseToken("Token");
     }

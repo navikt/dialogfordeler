@@ -1,7 +1,8 @@
 package no.nav.syfo.service;
 
 import lombok.extern.slf4j.Slf4j;
-import no.nav.brukerdialog.security.oidc.OidcTokenValidator;
+import no.nav.syfo.security.oidc.OidcTokenValidator;
+import no.nav.syfo.security.oidc.OidcTokenValidatorResult;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class JwtService {
     }
 
     public String parseToken(String rawToken) {
-        OidcTokenValidator.OidcTokenValidatorResult validate = oidcTokenValidator.validate(rawToken);
+        OidcTokenValidatorResult validate = oidcTokenValidator.validate(rawToken);
 
         if (validate.isValid()) {
             log.debug("JWT is valid");
