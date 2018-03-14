@@ -1,5 +1,5 @@
 name: dialogfordeler
-image: "docker.adeo.no:5000/syfo/dialogfordeler"
+image: "repo.adeo.no:5443/dialogfordeler"
 replicas:
   min: 1
   max: 2
