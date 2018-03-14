@@ -29,9 +29,11 @@ public class MottakQueueUtsendingProvider {
     private final Consumer<String> jmsSender = message -> jmsMottakQueueUtsending.send(messageCreator(message));
 
     public void sendTilEMottak(@NotNull String message) {
-        log.info("Sender melding til eMottak");
         if (leggMeldingerPaKo) {
+            log.info("Melding til eMottak: Sender");
             jmsSender.accept(message);
+        } else {
+            log.info("Melding til eMottak: Sending deaktivert");
         }
     }
 }

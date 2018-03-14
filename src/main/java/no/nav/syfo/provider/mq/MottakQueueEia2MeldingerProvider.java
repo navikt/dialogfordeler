@@ -32,11 +32,11 @@ public class MottakQueueEia2MeldingerProvider {
 
     public void sendTilEia(Fellesformat fellesformat) {
         if (fellesformat.erAppRec()) {
-            log.info("Sender AppRec til eia");
+            log.info("AppRec til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
         } else if (fellesformat.erHodemelding()) {
-            log.info("Sender Hodemelding til eia");
+            log.info("Hodemelding til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
         } else {
-            log.info("Sender ukjent melding til eia");
+            log.info("ukjent melding til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
         }
 
         if (leggMeldingerPaKo) {
