@@ -3,6 +3,7 @@ package no.nav.syfo.web.rest.dialogmelding;
 import no.nav.syfo.config.OidcTokenValidatorConfig;
 import no.nav.syfo.security.WebSecurityConfig;
 import no.nav.syfo.security.jwt.JwtAuthenticationProvider;
+import no.nav.syfo.security.kontroller.KontrollerServicebruker;
 import no.nav.syfo.security.oidc.OidcTokenValidator;
 import no.nav.syfo.service.JwtService;
 import org.junit.Test;
@@ -18,14 +19,15 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
 
-//import no.nav.syfo.security.kontroller.KontrollerServicebruker;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {
         DialogmeldingController.class,
         WebSecurityConfig.class,
-//        KontrollerServicebruker.class,
+        KontrollerServicebruker.class,
         JwtAuthenticationProvider.class,
         JwtService.class,
         OidcTokenValidator.class,
@@ -34,8 +36,8 @@ import javax.inject.Inject;
 public class DialogmeldingControllerSecurityTest {
     @MockBean
     private DialogmeldingService dialogmeldingService;
-//    @MockBean
-//    private KontrollerServicebruker kontrollerServicebruker;
+    @MockBean
+    private KontrollerServicebruker kontrollerServicebruker;
     @Inject
     private DialogmeldingController dialogmeldingController;
 
@@ -45,12 +47,12 @@ public class DialogmeldingControllerSecurityTest {
         dialogmeldingController.opprettDialogmelding(null);
     }
 
-//    @Test
-//    @WithMockUser(username = "srvTest")
-//    public void apiAuthenticated() throws Exception {
-//        when(kontrollerServicebruker.erServicebruker(any())).thenReturn(true);
-//        dialogmeldingController.opprettDialogmelding(null);
-//    }
+    @Test
+    @WithMockUser(username = "srvTest")
+    public void apiAuthenticated() throws Exception {
+        when(kontrollerServicebruker.erServicebruker(any())).thenReturn(true);
+        dialogmeldingController.opprettDialogmelding(null);
+    }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(username = "Z000000")

@@ -1,6 +1,5 @@
 package no.nav.syfo.web.rest.dialogmelding;
 
-import io.prometheus.client.spring.web.PrometheusTimeMethod;
 import no.nav.syfo.web.rest.dialogmelding.model.RSDialogmelding;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +19,7 @@ public class DialogmeldingController {
     }
 
     @RequestMapping(value = "/opprett", method = POST, consumes = APPLICATION_JSON_VALUE)
-    //@PreAuthorize("@kontrollerServicebruker.erServicebruker(authentication)")
-    @PreAuthorize("false")
-    @PrometheusTimeMethod(name = "http_request_opprett_dialogmelding", help = "Tid for oppretting av dialogmelding")
+    @PreAuthorize("@kontrollerServicebruker.erServicebruker(authentication)")
     public void opprettDialogmelding(@RequestBody RSDialogmelding dialogmelding) {
         dialogmeldingService.registrerDialogmelding(dialogmelding);
     }

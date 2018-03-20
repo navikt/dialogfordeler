@@ -4,9 +4,6 @@ import no.nav.syfo.domain.enums.FellesformatType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.time.ZoneId;
-
 import static java.time.LocalDateTime.now;
 
 @Component
@@ -23,7 +20,7 @@ public class DialogmeldingRespository {
                 id,
                 meldingId,
                 type.name(),
-                Date.from(now().atZone(ZoneId.systemDefault()).toInstant())
+                now()
         );
     }
 }

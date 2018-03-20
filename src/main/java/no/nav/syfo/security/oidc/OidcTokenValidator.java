@@ -16,7 +16,7 @@ public class OidcTokenValidator {
     private final String expectedIssuer;
 
     public OidcTokenValidator(VerificationKeyResolver verificationKeyResolver,
-                              @Value("${ISSO-ISSUER_URL}") String expectedIssuer) {
+                              @Value("${isso-issuer.url}") String expectedIssuer) {
         this.verificationKeyResolver = verificationKeyResolver;
         this.expectedIssuer = expectedIssuer;
     }

@@ -20,7 +20,7 @@ public class MottakQueueUtsendingProvider {
     private boolean leggMeldingerPaKo;
 
     public MottakQueueUtsendingProvider(JmsTemplate jmsMottakQueueUtsending,
-                                        @Value("${TOGGLE_LEGG_MELDINGER_PA_KO:false}")
+                                        @Value("${toggle.legg.meldinger.pa.ko:false}")
                                                 boolean leggMeldingerPaKo) {
         this.jmsMottakQueueUtsending = jmsMottakQueueUtsending;
         this.leggMeldingerPaKo = leggMeldingerPaKo;

@@ -8,7 +8,7 @@ import org.junit.Test;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class DialogmeldingerConsumerTest {

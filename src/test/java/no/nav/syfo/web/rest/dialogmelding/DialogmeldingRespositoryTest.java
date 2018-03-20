@@ -4,14 +4,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import static no.nav.syfo.domain.enums.FellesformatType.SYFO_APPREC;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,6 +32,6 @@ public class DialogmeldingRespositoryTest {
                 eq(1L),
                 eq("meldingId"),
                 eq(SYFO_APPREC.name()),
-                any(Date.class));
+                any(LocalDateTime.class));
     }
 }

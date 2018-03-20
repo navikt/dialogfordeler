@@ -13,11 +13,11 @@
 //@Configuration
 //@Import(no.nav.freg.abac.spring.config.AbacConfig.class)
 //public class AbacConfig {
-//    @Value("${ABAC_URL}")
+//    @Value("${abac.url}")
 //    private String url;
-//    @Value("${SERVICEUSER_USERNAME}")
+//    @Value("${serviceuser.username}")
 //    private String username;
-//    @Value("${SERVICEUSER_PASSWORD}")
+//    @Value("${serviceuser.password}")
 //    private String password;
 //
 //    @Bean
