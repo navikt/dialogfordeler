@@ -49,6 +49,8 @@
         <spring.version>5.0.4.RELEASE</spring.version>
         <!--DB-->
         <ojdbc8.version>12.2.0.1</ojdbc8.version>
+        <!--FLYWAY-->
+        <flyway-core.version>5.0.7</flyway-core.version>
         <!--OIDC-SECURITY-->
         <jose4j.version>0.5.0</jose4j.version>
         <!--ABAC-->
@@ -116,6 +118,13 @@
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>${ojdbc8.version}</version>
+        </dependency>
+
+        <!--FLYWAY-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway-core.version}</version>
         </dependency>
 
         <!--OIDC-SECURITY-->
