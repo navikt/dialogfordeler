@@ -15,12 +15,12 @@ import static no.nav.syfo.util.JmsUtil.messageCreator;
  */
 @Component
 @Slf4j
-public class MottakQueueEbrevKvittering {
+public class MottakQueueEbrevKvitteringProvider {
     private JmsTemplate jmsMottakQueueEbrevKvittering;
     private boolean leggMeldingerPaKo;
 
-    public MottakQueueEbrevKvittering(JmsTemplate jmsMottakQueueEbrevKvittering,
-                                      @Value("${toggle.legg.meldinger.pa.ko:false}")
+    public MottakQueueEbrevKvitteringProvider(JmsTemplate jmsMottakQueueEbrevKvittering,
+                                              @Value("${toggle.legg.meldinger.pa.ko:false}")
                                                 boolean leggMeldingerPaKo) {
         this.jmsMottakQueueEbrevKvittering = jmsMottakQueueEbrevKvittering;
         this.leggMeldingerPaKo = leggMeldingerPaKo;

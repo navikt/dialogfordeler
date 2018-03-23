@@ -4,7 +4,7 @@ import no.nav.syfo.domain.apprecwrapper.AppRec;
 import no.nav.syfo.domain.enums.FellesformatType;
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
-import no.nav.syfo.provider.mq.MottakQueueEbrevKvittering;
+import no.nav.syfo.provider.mq.MottakQueueEbrevKvitteringProvider;
 import no.nav.syfo.provider.mq.MottakQueueEia2MeldingerProvider;
 import no.nav.syfo.repository.MeldingIdRepository;
 import org.springframework.stereotype.Service;
@@ -18,19 +18,19 @@ public class FellesformatRuter {
     private AppRecService appRecService;
     private SyfoMeldingService syfoMeldingService;
     private MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider;
-    private MottakQueueEbrevKvittering mottakQueueEbrevKvittering;
+    private MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider;
 
     private MeldingIdRepository meldingIdRepository;
 
     public FellesformatRuter(AppRecService appRecService,
                              SyfoMeldingService syfoMeldingService,
                              MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider,
-                             MottakQueueEbrevKvittering mottakQueueEbrevKvittering,
+                             MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider,
                              MeldingIdRepository meldingIdRepository) {
         this.appRecService = appRecService;
         this.syfoMeldingService = syfoMeldingService;
         this.mottakQueueEia2MeldingerProvider = mottakQueueEia2MeldingerProvider;
-        this.mottakQueueEbrevKvittering = mottakQueueEbrevKvittering;
+        this.mottakQueueEbrevKvitteringProvider = mottakQueueEbrevKvitteringProvider;
         this.meldingIdRepository = meldingIdRepository;
     }
 
@@ -48,7 +48,7 @@ public class FellesformatRuter {
                 fellesformat.getAppRecStream().forEach(appRecService::doSomething);
                 break;
             case UKJENT_APPREC:
-                mottakQueueEbrevKvittering.sendTilEMottak(fellesformat.getMessage());
+                mottakQueueEbrevKvitteringProvider.sendTilEMottak(fellesformat.getMessage());
                 break;
             default:
                 throw new IllegalArgumentException("Kan ikke identifisere AppRec");

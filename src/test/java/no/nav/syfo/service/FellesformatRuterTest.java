@@ -3,7 +3,7 @@ package no.nav.syfo.service;
 import no.nav.syfo.domain.apprecwrapper.AppRec;
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
-import no.nav.syfo.provider.mq.MottakQueueEbrevKvittering;
+import no.nav.syfo.provider.mq.MottakQueueEbrevKvitteringProvider;
 import no.nav.syfo.provider.mq.MottakQueueEia2MeldingerProvider;
 import no.nav.syfo.repository.MeldingIdRepository;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class FellesformatRuterTest {
     @Mock
     private MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider;
     @Mock
-    private MottakQueueEbrevKvittering mottakQueueEbrevKvittering;
+    private MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider;
     @Mock
     private MeldingIdRepository meldingIdRepository;
     @InjectMocks
@@ -47,7 +47,7 @@ public class FellesformatRuterTest {
         verify(syfoMeldingService).doSomething(any(Hodemelding.class));
         verify(appRecService, never()).doSomething(any(AppRec.class));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
-        verify(mottakQueueEbrevKvittering, never()).sendTilEMottak(anyString());
+        verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class FellesformatRuterTest {
         verify(appRecService).doSomething(any(AppRec.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
-        verify(mottakQueueEbrevKvittering, never()).sendTilEMottak(anyString());
+        verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class FellesformatRuterTest {
         verify(mottakQueueEia2MeldingerProvider).sendTilEia(any(Fellesformat.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
         verify(appRecService, never()).doSomething(any(AppRec.class));
-        verify(mottakQueueEbrevKvittering, never()).sendTilEMottak(anyString());
+        verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class FellesformatRuterTest {
 
         fellesformatRuter.evaluer(fellesformat);
 
-        verify(mottakQueueEbrevKvittering).sendTilEMottak(eq("AppRecMessage"));
+        verify(mottakQueueEbrevKvitteringProvider).sendTilEMottak(eq("AppRecMessage"));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
         verify(appRecService, never()).doSomething(any(AppRec.class));
