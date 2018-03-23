@@ -14,7 +14,7 @@ import no.nav.xml.eiff._2.XMLEIFellesformat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static no.nav.syfo.domain.enums.FellesformatType.SYFO_HODEMELDING;
+import static no.nav.syfo.domain.enums.FellesformatType.SYFO_MELDING;
 
 @Service
 @Slf4j
@@ -29,7 +29,7 @@ public class DialogmeldingService {
 
     @Transactional
     public void registrerDialogmelding(RSDialogmelding dialogmelding) {
-        dialogmeldingRespository.registrerDialogmelding(dialogmelding.getMeldingId(), SYFO_HODEMELDING);
+        dialogmeldingRespository.registrerDialogmelding(dialogmelding.getMeldingId(), SYFO_MELDING);
 
         Fellesformat fellesformat = opprettDialogmelding(dialogmelding);
 

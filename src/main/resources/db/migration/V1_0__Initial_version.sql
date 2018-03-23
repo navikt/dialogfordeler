@@ -10,8 +10,9 @@ CREATE SEQUENCE MELDING_ID_SEQ
   INCREMENT BY 1;
 
 CREATE TABLE MELDING (
-  id         NUMBER              NOT NULL PRIMARY KEY,
-  melding_id VARCHAR(255) UNIQUE NOT NULL,
-  type       VARCHAR(255)        NOT NULL,
-  registrert TIMESTAMP           NOT NULL
+  id          NUMBER              NOT NULL PRIMARY KEY,
+  dokument_id VARCHAR(255) UNIQUE NOT NULL,
+  melding_id  VARCHAR(255) UNIQUE NOT NULL,
+  type        VARCHAR(255)        NOT NULL,
+  registrert  TIMESTAMP           NOT NULL
 );

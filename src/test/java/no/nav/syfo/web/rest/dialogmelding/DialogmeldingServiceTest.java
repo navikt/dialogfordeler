@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static no.nav.syfo.domain.enums.FellesformatType.SYFO_HODEMELDING;
+import static no.nav.syfo.domain.enums.FellesformatType.SYFO_MELDING;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -28,7 +28,7 @@ public class DialogmeldingServiceTest {
         dialogmeldingService.registrerDialogmelding(new RSDialogmelding("meldingId", "lege", "pasient"));
 
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(dialogmeldingRespository).registrerDialogmelding(eq("meldingId"), eq(SYFO_HODEMELDING));
+        verify(dialogmeldingRespository).registrerDialogmelding(eq("meldingId"), eq(SYFO_MELDING));
         verify(mottakQueue).sendTilEMottak(argumentCaptor.capture());
 
         assertThat(argumentCaptor.getValue()).isEqualTo(ff());

@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDateTime;
 
-import static no.nav.syfo.domain.enums.FellesformatType.SYFO_APPREC;
+import static no.nav.syfo.domain.enums.FellesformatType.SYFO_MELDING;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -26,12 +26,12 @@ public class DialogmeldingRespositoryTest {
     public void registrerDialogmelding() {
         when(jdbcTemplate.queryForObject("SELECT MELDING_ID_SEQ.nextval FROM dual", Long.class)).thenReturn(1L);
 
-        dialogmeldingRespository.registrerDialogmelding("meldingId", SYFO_APPREC);
+        dialogmeldingRespository.registrerDialogmelding("meldingId", SYFO_MELDING);
 
         verify(jdbcTemplate).update(eq("INSERT INTO MELDING (id, melding_id, type, registrert) VALUES (?, ?, ?, ?)"),
                 eq(1L),
                 eq("meldingId"),
-                eq(SYFO_APPREC.name()),
+                eq(SYFO_MELDING.name()),
                 any(LocalDateTime.class));
     }
 }

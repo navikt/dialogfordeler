@@ -6,16 +6,16 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 
-public class HodemeldingServiceTest {
-    private HodemeldingService hodemeldingService;
+public class SyfoMeldingServiceTest {
+    private SyfoMeldingService syfoMeldingService;
 
     @Before
     public void setUp() {
-        hodemeldingService = new HodemeldingService();
+        syfoMeldingService = new SyfoMeldingService();
     }
 
     @Test(expected = IllegalStateException.class)
     public void doSomething() throws Exception {
-        hodemeldingService.doSomething(mock(Hodemelding.class));
+        syfoMeldingService.doSomething(mock(Hodemelding.class));
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class HodemeldingService {
+public class SyfoMeldingService {
     public void doSomething(Hodemelding hodemelding) {
         log.info("Sendt til syfo");
         throw new IllegalStateException("Ikke implementert");

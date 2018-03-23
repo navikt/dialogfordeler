@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static java.util.stream.Stream.concat;
-
 public class Fellesformat {
     private String message;
     private XMLEIFellesformat fellesformat;
@@ -75,11 +73,5 @@ public class Fellesformat {
 
     public boolean erAppRec() {
         return getAppRecStream().count() > 0;
-    }
-
-    public Stream<String> meldingIdStream() {
-        return concat(
-                getHodemeldingStream().flatMap(Hodemelding::getDokIdNotatStream),
-                getAppRecStream().map(AppRec::originalMessageId));
     }
 }

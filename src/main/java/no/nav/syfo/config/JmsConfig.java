@@ -34,6 +34,8 @@ public class JmsConfig {
     private String mottakQueueEia2MeldingerQueuename;
     @Value("${mottak.queue.utsending.queuename}")
     private String mottakQueueUtsendingQueuename;
+    @Value("${mottak.queue.ebrev.kvittering.queuename}")
+    private String mottakQueueEbrevKvitteringQueuename;
     @Value("${dialogfordeler.channel.name}")
     private String channelName;
     @Value("${mqgateway03.hostname}")
@@ -85,6 +87,22 @@ public class JmsConfig {
     @Bean
     public Queue mottakQueueUtsending() throws JMSException {
         return new MQQueue(mottakQueueUtsendingQueuename);
+    }
+
+    /**
+     * QA.Q414.IU03_EBREV_KVITTERING
+     */
+    @Bean
+    public JmsTemplate jmsMottakQueueEbrevKvittering(Queue mottakQueueEbrevKvittering, ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setDefaultDestination(mottakQueueEbrevKvittering);
+        jmsTemplate.setConnectionFactory(connectionFactory);
+        return jmsTemplate;
+    }
+
+    @Bean
+    public Queue mottakQueueEbrevKvittering() throws JMSException {
+        return new MQQueue(mottakQueueEbrevKvitteringQueuename);
     }
 
     @Bean
