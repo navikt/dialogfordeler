@@ -55,6 +55,8 @@ fasitResources:
     resourceType: queue
   - alias: "mottak_queue_utsending" #QA.Q414.IU03_UTSENDING
     resourceType: queue
+  - alias: "mottak_queue_ebrev_kvittering" #QA.T414.IU03_EBREV_KVITTERING
+    resourceType: queue
   - alias: dialogfordelerProperties
     resourceType: applicationproperties
   - alias: dialogfordelerDB
