@@ -1,7 +1,7 @@
 package no.nav.syfo.web.rest.dialogmelding;
 
 import no.nav.syfo.provider.mq.MottakQueueUtsendingProvider;
-import no.nav.syfo.web.rest.dialogmelding.model.RSDialogmelding;
+import no.nav.syfo.web.rest.dialogmelding.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -11,6 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static no.nav.syfo.domain.enums.FellesformatType.SYFO_MELDING;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
@@ -25,30 +26,43 @@ public class DialogmeldingServiceTest {
 
     @Test
     public void registrerDialogmelding() {
-        dialogmeldingService.registrerDialogmelding(new RSDialogmelding("meldingId", "lege", "pasient"));
+        dialogmeldingService.registrerDialogmelding(hodemelding());
 
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(dialogmeldingRespository).registrerDialogmelding(eq("meldingId"), eq(SYFO_MELDING));
+        verify(dialogmeldingRespository).registrerDialogmelding(anyString(), eq(SYFO_MELDING));
         verify(mottakQueue).sendTilEMottak(argumentCaptor.capture());
 
-        assertThat(argumentCaptor.getValue()).isEqualTo(ff());
+        assertThat(argumentCaptor.getValue()).hasSize(5927);
     }
 
-    private String ff() {
-        return "<EI_fellesformat xmlns=\"http://www.nav.no/xml/eiff/2/\" xmlns:ns6=\"http://www.kith.no/xmlstds/base64container\" xmlns:ns5=\"http://www.kith.no/xmlstds/felleskomponent1\" xmlns:ns2=\"http://www.kith.no/xmlstds/msghead/2006-05-24\" xmlns:ns4=\"http://www.kith.no/xmlstds/dialog/2006-10-11\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n" +
-                "    <ns2:MsgHead>\n" +
-                "        <ns2:Document>\n" +
-                "            <ns2:RefDoc>\n" +
-                "                <ns2:Content>\n" +
-                "                    <ns4:Dialogmelding>\n" +
-                "                        <ns4:Foresporsel>\n" +
-                "                            <ns4:DokIdForesp>meldingId</ns4:DokIdForesp>\n" +
-                "                        </ns4:Foresporsel>\n" +
-                "                    </ns4:Dialogmelding>\n" +
-                "                </ns2:Content>\n" +
-                "            </ns2:RefDoc>\n" +
-                "        </ns2:Document>\n" +
-                "    </ns2:MsgHead>\n" +
-                "</EI_fellesformat>";
+    private RSHodemelding hodemelding() {
+        return new RSHodemelding(
+                new RSMeldingInfo(
+                        new RSSender("id", "navn"),
+                        new RSMottaker("herId",
+                                "partnerId",
+                                "orgnummer",
+                                "navn",
+                                "adresse",
+                                "postnummer",
+                                "poststed",
+                                new RSBehandler(
+                                        "fnr",
+                                        "hprId",
+                                        "fornavn",
+                                        "mellomnavn",
+                                        "etternavn")),
+                        new RSPasient(
+                                "fnr",
+                                "fornavn",
+                                "mellomnavn",
+                                "etternavn")),
+                new RSDialogmelding(
+                        "sporsmal",
+                        new RSRoller(
+                                "personFornavn",
+                                "personMellomnavn",
+                                "personEtternavn")),
+                new RSVedlegg(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}));
     }
 }

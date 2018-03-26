@@ -8,4 +8,9 @@ import no.kith.xmlstds.dialog._2013_01_23.XMLForesporsel;
 public class Foresporsel1_1 implements Foresporsel {
     @NonNull
     private XMLForesporsel xmlForesporsel;
+
+    @Override
+    public String getDokIdForesp() {
+        return xmlForesporsel.getDokIdForesp();
+    }
 }

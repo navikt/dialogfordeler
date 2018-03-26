@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RSDialogmelding {
-    private String sporsmal;
-    private RSRoller roller;
+public class RSSender {
+    private String id;
+    private String navn;
 }

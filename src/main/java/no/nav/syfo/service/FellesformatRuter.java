@@ -10,6 +10,7 @@ import no.nav.syfo.repository.MeldingIdRepository;
 import org.springframework.stereotype.Service;
 
 import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Stream.concat;
 import static no.nav.syfo.domain.enums.FellesformatType.EIA_MELDING;
 import static no.nav.syfo.domain.enums.FellesformatType.UKJENT_APPREC;
 
@@ -79,9 +80,13 @@ public class FellesformatRuter {
 
     private FellesformatType identifiserHodemelding(Fellesformat fellesformat) {
         return meldingIdRepository.finnMeldingstypeForDokumentIdSet(
-                fellesformat
-                        .getHodemeldingStream()
-                        .flatMap(Hodemelding::getDokIdNotatStream)
+                concat(
+                        fellesformat
+                                .getHodemeldingStream()
+                                .flatMap(Hodemelding::getDokIdNotatStream),
+                        fellesformat
+                                .getHodemeldingStream()
+                                .flatMap(Hodemelding::getDokIdForespStream))
                         .collect(toSet()))
                 .orElse(EIA_MELDING);
     }

@@ -45,6 +45,10 @@ public class Hodemelding {
         return msgHead.getMsgInfo().getMsgId();
     }
 
+    public Stream<String> getDokIdForespStream() {
+        return dokumentListe.stream().flatMap(Dokument::getDokIdForespStream);
+    }
+
     public Stream<String> getDokIdNotatStream() {
         return dokumentListe.stream().flatMap(Dokument::getDokIdNotatStream);
     }

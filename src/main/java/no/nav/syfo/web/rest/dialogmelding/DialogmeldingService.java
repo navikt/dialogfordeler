@@ -1,15 +1,12 @@
 package no.nav.syfo.web.rest.dialogmelding;
 
 import lombok.extern.slf4j.Slf4j;
-import no.kith.xmlstds.dialog._2006_10_11.XMLDialogmelding;
-import no.kith.xmlstds.dialog._2006_10_11.XMLForesporsel;
-import no.kith.xmlstds.msghead._2006_05_24.XMLDocument;
-import no.kith.xmlstds.msghead._2006_05_24.XMLMsgHead;
-import no.kith.xmlstds.msghead._2006_05_24.XMLRefDoc;
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
+import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
 import no.nav.syfo.provider.mq.MottakQueueUtsendingProvider;
 import no.nav.syfo.util.JAXB;
-import no.nav.syfo.web.rest.dialogmelding.model.RSDialogmelding;
+import no.nav.syfo.web.rest.dialogmelding.converter.FellesformatConverter;
+import no.nav.syfo.web.rest.dialogmelding.model.RSHodemelding;
 import no.nav.xml.eiff._2.XMLEIFellesformat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,24 +25,21 @@ public class DialogmeldingService {
     }
 
     @Transactional
-    public void registrerDialogmelding(RSDialogmelding dialogmelding) {
-        dialogmeldingRespository.registrerDialogmelding(dialogmelding.getMeldingId(), SYFO_MELDING);
-
+    public void registrerDialogmelding(RSHodemelding dialogmelding) {
         Fellesformat fellesformat = opprettDialogmelding(dialogmelding);
+
+        dialogmeldingRespository.registrerDialogmelding(fellesformat
+                        .getHodemeldingStream()
+                        .flatMap(Hodemelding::getDokIdForespStream)
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Finner ikke meldingId")),
+                SYFO_MELDING);
 
         mottakQueue.sendTilEMottak(fellesformat.getMessage());
     }
 
-    private Fellesformat opprettDialogmelding(RSDialogmelding dialogmelding) {
-        Fellesformat fellesformat = new Fellesformat(
-                new XMLEIFellesformat().withAny(
-                        new XMLMsgHead().withDocument(
-                                new XMLDocument().withRefDoc(
-                                        new XMLRefDoc().withContent(
-                                                new XMLRefDoc.Content().withAny(
-                                                        new XMLDialogmelding().withForesporsel(
-                                                                new XMLForesporsel().withDokIdForesp(dialogmelding.getMeldingId()))))))));
-        fellesformat.setMessage(JAXB.marshallDialogmelding1_0(fellesformat.getEIFellesformat()));
-        return fellesformat;
+    private Fellesformat opprettDialogmelding(RSHodemelding hodemelding) {
+        XMLEIFellesformat xmleiFellesformat = new FellesformatConverter(hodemelding).getEiFellesformat();
+        return new Fellesformat(xmleiFellesformat, JAXB::marshallDialogmelding1_0);
     }
 }

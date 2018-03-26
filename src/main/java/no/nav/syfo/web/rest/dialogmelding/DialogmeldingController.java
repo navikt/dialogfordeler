@@ -1,6 +1,6 @@
 package no.nav.syfo.web.rest.dialogmelding;
 
-import no.nav.syfo.web.rest.dialogmelding.model.RSDialogmelding;
+import no.nav.syfo.web.rest.dialogmelding.model.RSHodemelding;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +18,9 @@ public class DialogmeldingController {
         this.dialogmeldingService = dialogmeldingService;
     }
 
-    @RequestMapping(value = "/opprett", method = POST, consumes = APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/sendOppfolgingsplan", method = POST, consumes = APPLICATION_JSON_VALUE)
     @PreAuthorize("@kontrollerServicebruker.erServicebruker(authentication)")
-    public void opprettDialogmelding(@RequestBody RSDialogmelding dialogmelding) {
+    public void sendOppfolgingsplan(@RequestBody RSHodemelding dialogmelding) {
         dialogmeldingService.registrerDialogmelding(dialogmelding);
     }
 }

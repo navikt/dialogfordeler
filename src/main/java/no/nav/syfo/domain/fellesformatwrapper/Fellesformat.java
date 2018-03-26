@@ -10,6 +10,7 @@ import no.nav.xml.eiff._2.XMLMottakenhetBlokk;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class Fellesformat {
@@ -21,12 +22,17 @@ public class Fellesformat {
     private List<Hodemelding> hodemeldingListe;
     private List<AppRec> appRecListe;
 
-    public Fellesformat(String message, XMLEIFellesformat fellesformat) {
+    public Fellesformat(XMLEIFellesformat fellesformat, String message) {
         this(fellesformat);
         this.message = message;
     }
 
-    public Fellesformat(XMLEIFellesformat fellesformat) {
+    public Fellesformat(XMLEIFellesformat fellesformat, Function<XMLEIFellesformat, String> marshaller) {
+        this(fellesformat);
+        this.message = marshaller.apply(fellesformat);
+    }
+
+    private Fellesformat(XMLEIFellesformat fellesformat) {
         this.fellesformat = fellesformat;
 
         this.mottakenhetBlokkListe = new ArrayList<>();
@@ -57,10 +63,6 @@ public class Fellesformat {
 
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public XMLEIFellesformat getEIFellesformat() {
