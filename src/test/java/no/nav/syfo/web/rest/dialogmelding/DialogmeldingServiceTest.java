@@ -29,7 +29,7 @@ public class DialogmeldingServiceTest {
         dialogmeldingService.registrerDialogmelding(hodemelding());
 
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(dialogmeldingRespository).registrerDialogmelding(anyString(), eq(SYFO_MELDING));
+        verify(dialogmeldingRespository).registrerDialogmelding(anyString(), anyString(), eq(SYFO_MELDING));
         verify(mottakQueue).sendTilEMottak(argumentCaptor.capture());
 
         assertThat(argumentCaptor.getValue()).hasSize(5927);

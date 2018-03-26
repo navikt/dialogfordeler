@@ -14,10 +14,11 @@ public class DialogmeldingRespository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void registrerDialogmelding(String meldingId, FellesformatType type) {
+    public void registrerDialogmelding(String dokumentId, String meldingId, FellesformatType type) {
         Long id = jdbcTemplate.queryForObject("SELECT MELDING_ID_SEQ.nextval FROM dual", Long.class);
-        jdbcTemplate.update("INSERT INTO MELDING (id, melding_id, type, registrert) VALUES (?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO MELDING (id, dokument_id, melding_id, type, registrert) VALUES (?, ?, ?, ?, ?)",
                 id,
+                dokumentId,
                 meldingId,
                 type.name(),
                 now()

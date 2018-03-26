@@ -32,6 +32,11 @@ public class DialogmeldingService {
                         .getHodemeldingStream()
                         .flatMap(Hodemelding::getDokIdForespStream)
                         .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Finner ikke dokumentId")),
+                fellesformat
+                        .getHodemeldingStream()
+                        .map(Hodemelding::getMessageId)
+                        .findFirst()
                         .orElseThrow(() -> new RuntimeException("Finner ikke meldingId")),
                 SYFO_MELDING);
 

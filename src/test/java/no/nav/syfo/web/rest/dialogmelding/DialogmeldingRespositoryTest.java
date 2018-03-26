@@ -26,7 +26,7 @@ public class DialogmeldingRespositoryTest {
     public void registrerDialogmelding() {
         when(jdbcTemplate.queryForObject("SELECT MELDING_ID_SEQ.nextval FROM dual", Long.class)).thenReturn(1L);
 
-        dialogmeldingRespository.registrerDialogmelding("meldingId", SYFO_MELDING);
+        dialogmeldingRespository.registrerDialogmelding("dokumentId", "meldingId", SYFO_MELDING);
 
         verify(jdbcTemplate).update(eq("INSERT INTO MELDING (id, melding_id, type, registrert) VALUES (?, ?, ?, ?)"),
                 eq(1L),
