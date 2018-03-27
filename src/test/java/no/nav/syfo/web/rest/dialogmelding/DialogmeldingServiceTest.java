@@ -32,7 +32,7 @@ public class DialogmeldingServiceTest {
         verify(dialogmeldingRespository).registrerDialogmelding(anyString(), anyString(), eq(SYFO_MELDING));
         verify(mottakQueue).sendTilEMottak(argumentCaptor.capture());
 
-        assertThat(argumentCaptor.getValue()).hasSize(5927);
+        assertThat(argumentCaptor.getValue()).hasSize(5735);
     }
 
     private RSHodemelding hodemelding() {

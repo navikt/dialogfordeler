@@ -28,8 +28,9 @@ public class DialogmeldingRespositoryTest {
 
         dialogmeldingRespository.registrerDialogmelding("dokumentId", "meldingId", SYFO_MELDING);
 
-        verify(jdbcTemplate).update(eq("INSERT INTO MELDING (id, melding_id, type, registrert) VALUES (?, ?, ?, ?)"),
+        verify(jdbcTemplate).update(eq("INSERT INTO MELDING (id, dokument_id, melding_id, type, registrert) VALUES (?, ?, ?, ?, ?)"),
                 eq(1L),
+                eq("dokumentId"),
                 eq("meldingId"),
                 eq(SYFO_MELDING.name()),
                 any(LocalDateTime.class));

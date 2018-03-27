@@ -15,7 +15,7 @@ public class HodemeldingConverter {
 
     public HodemeldingConverter(RSHodemelding rsHodemelding) {
         this.meldingInfoConverter = new MeldingInfoConverter(rsHodemelding.getMeldingInfo());
-        this.dokumentDialogmeldingConverter = new DokumentDialogmeldingConverter(rsHodemelding.getDialogmelding());
+        this.dokumentDialogmeldingConverter = new DokumentDialogmeldingConverter();
         this.dokumentVedleggConverter = new DokumentVedleggConverter(rsHodemelding.getVedlegg());
     }
 

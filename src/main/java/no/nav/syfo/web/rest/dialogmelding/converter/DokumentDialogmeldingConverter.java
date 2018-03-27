@@ -2,7 +2,6 @@ package no.nav.syfo.web.rest.dialogmelding.converter;
 
 import no.kith.xmlstds.msghead._2006_05_24.ObjectFactory;
 import no.kith.xmlstds.msghead._2006_05_24.XMLDocument;
-import no.nav.syfo.web.rest.dialogmelding.model.RSDialogmelding;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,8 +13,8 @@ public class DokumentDialogmeldingConverter {
 
     private XMLDocument document;
 
-    public DokumentDialogmeldingConverter(RSDialogmelding rsDialogmelding) {
-        this.dialogmeldingConverter = new DialogmeldingConverter(rsDialogmelding);
+    public DokumentDialogmeldingConverter() {
+        this.dialogmeldingConverter = new DialogmeldingConverter();
     }
 
     public XMLDocument getDocument() {

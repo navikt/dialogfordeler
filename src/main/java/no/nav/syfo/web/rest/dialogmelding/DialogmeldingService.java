@@ -30,7 +30,7 @@ public class DialogmeldingService {
 
         dialogmeldingRespository.registrerDialogmelding(fellesformat
                         .getHodemeldingStream()
-                        .flatMap(Hodemelding::getDokIdForespStream)
+                        .flatMap(Hodemelding::getDokIdNotatStream)
                         .findFirst()
                         .orElseThrow(() -> new RuntimeException("Finner ikke dokumentId")),
                 fellesformat

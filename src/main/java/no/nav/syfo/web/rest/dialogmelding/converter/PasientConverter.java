@@ -29,7 +29,7 @@ public class PasientConverter {
                     .withIdent(FACTORY.createXMLIdent()
                             .withId(rsPasient.getFnr())
                             .withTypeId(FACTORY.createXMLCV()
-                                    .withDN("Fødselsnummer Norsk fødselsnummer")
+                                    .withDN("Fødselsnummer")
                                     .withS("2.16.578.1.12.4.1.1.8116")
                                     .withV("FNR")));
         }
