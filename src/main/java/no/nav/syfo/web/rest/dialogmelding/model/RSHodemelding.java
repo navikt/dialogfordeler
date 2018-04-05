@@ -9,6 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RSHodemelding {
     private RSMeldingInfo meldingInfo;
-    private RSDialogmelding dialogmelding;
     private RSVedlegg vedlegg;
 }

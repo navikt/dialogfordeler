@@ -17,7 +17,7 @@ public class MeldingInfoConverter {
     private XMLMsgInfo msgInfo;
 
     public MeldingInfoConverter(RSMeldingInfo rsMeldingInfo) {
-        this.senderConverter = new SenderConverter(rsMeldingInfo.getSender());
+        this.senderConverter = new SenderConverter();
         this.mottakerConverter = new MottakerConverter(rsMeldingInfo.getMottaker());
         this.pasientConverter = new PasientConverter(rsMeldingInfo.getPasient());
     }
@@ -31,8 +31,8 @@ public class MeldingInfoConverter {
         if (this.msgInfo == null) {
             this.msgInfo = FACTORY.createXMLMsgInfo()
                     .withType(FACTORY.createXMLCS()
-                            .withDN("Forespørsel")
-                            .withV("DIALOG_FORESPORSEL"))
+                            .withDN("Notat")
+                            .withV("DIALOG_NOTAT"))
                     .withMIGversion("v1.2 2006-05-24")
                     .withGenDate(LocalDateTime.now())
                     .withMsgId(UUID.randomUUID().toString())

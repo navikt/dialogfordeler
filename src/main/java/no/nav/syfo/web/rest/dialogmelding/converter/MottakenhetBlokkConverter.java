@@ -23,21 +23,10 @@ public class MottakenhetBlokkConverter {
     private void ensureMottakenhetBlokk() {
         if (this.xmlMottakenhetBlokk == null) {
             this.xmlMottakenhetBlokk = FACTORY.createXMLMottakenhetBlokk()
-//                    .withEdiLoggId()
-//                    .withAvsender()
-//                    .withEbXMLSamtaleId()
-//                    .withMottaksId()
-//                    .withMeldingsType()
-//                    .withAvsenderRef()
-//                    .withAvsenderFnrFraDigSignatur()
-//                    .withMottattDatotid()
-//                    .withOrgNummer()
-//                    .withAvsenderOrgNrFraDigSignatur()
                     .withPartnerReferanse(rsHodemelding.getMeldingInfo().getMottaker().getPartnerId())
-//                    .withHerIdentifikator()
                     .withEbRole("Saksbehandler")
-                    .withEbService("ForesporselFraSaksbehandler")
-                    .withEbAction("Foresporsel");
+                    .withEbService("Oppfolgingsplan")
+                    .withEbAction("Plan");
         }
     }
 }

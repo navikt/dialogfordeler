@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RSMottaker {
-    private String herId;
     private String partnerId;
+    private String herId;
     private String orgnummer;
     private String navn;
     private String adresse;

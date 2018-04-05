@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RSMeldingInfo {
-    private RSSender sender;
     private RSMottaker mottaker;
     private RSPasient pasient;
 }
