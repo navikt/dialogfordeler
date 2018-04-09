@@ -98,9 +98,9 @@ public class DialogmeldingServiceTest {
                         "        </ns2:MsgInfo>\n" +
                         "        <ns2:Document>\n" +
                         "            <ns2:DocumentConnection V=\"H\" DN=\"Hoveddokument\"/>\n" +
-                        "            <ns2:RefDoc>\n" +
-                        "                <ns2:IssueDate V=\"2018-04-05\"/>\n" +
-                        "                <ns2:MsgType V=\"XML\" DN=\"XML-instans\"/>\n" +
+                        "            <ns2:RefDoc>\n")
+                .containsPattern("<ns2:IssueDate V=\"\\d{4}-\\d{2}-\\d{2}\"/>")
+                .contains("                <ns2:MsgType V=\"XML\" DN=\"XML-instans\"/>\n" +
                         "                <ns2:MimeType>text/xml</ns2:MimeType>\n" +
                         "                <ns2:Content>\n" +
                         "                    <ns4:Dialogmelding>\n" +
