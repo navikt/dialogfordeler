@@ -1,5 +1,6 @@
 package no.nav.syfo.service;
 
+import lombok.extern.slf4j.Slf4j;
 import no.nav.syfo.domain.apprecwrapper.AppRec;
 import no.nav.syfo.domain.enums.FellesformatType;
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
@@ -15,6 +16,7 @@ import static no.nav.syfo.domain.enums.FellesformatType.EIA_MELDING;
 import static no.nav.syfo.domain.enums.FellesformatType.UKJENT_APPREC;
 
 @Service
+@Slf4j
 public class FellesformatRuter {
     private AppRecService appRecService;
     private SyfoMeldingService syfoMeldingService;
@@ -44,7 +46,9 @@ public class FellesformatRuter {
     }
 
     private void evaluerAppRec(Fellesformat fellesformat) {
-        switch (identifiserAppRec(fellesformat)) {
+        FellesformatType type = identifiserAppRec(fellesformat);
+        log.info("Mottatt apprec av type {}:\n{}", type, fellesformat.getMessage());
+        switch (type) {
             case SYFO_MELDING:
                 fellesformat.getAppRecStream().forEach(appRecService::registrerMottattAppRec);
                 break;
