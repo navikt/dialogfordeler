@@ -46,7 +46,7 @@ public class FellesformatRuter {
     private void evaluerAppRec(Fellesformat fellesformat) {
         switch (identifiserAppRec(fellesformat)) {
             case SYFO_MELDING:
-                fellesformat.getAppRecStream().forEach(appRecService::doSomething);
+                fellesformat.getAppRecStream().forEach(appRecService::registrerMottattAppRec);
                 break;
             case UKJENT_APPREC:
                 mottakQueueEbrevKvitteringProvider.sendTilEMottak(fellesformat.getMessage());

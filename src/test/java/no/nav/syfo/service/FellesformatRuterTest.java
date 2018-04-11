@@ -45,7 +45,7 @@ public class FellesformatRuterTest {
         fellesformatRuter.evaluer(fellesformat);
 
         verify(syfoMeldingService).doSomething(any(Hodemelding.class));
-        verify(appRecService, never()).doSomething(any(AppRec.class));
+        verify(appRecService, never()).registrerMottattAppRec(any(AppRec.class));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
         verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
     }
@@ -60,7 +60,7 @@ public class FellesformatRuterTest {
 
         fellesformatRuter.evaluer(fellesformat);
 
-        verify(appRecService).doSomething(any(AppRec.class));
+        verify(appRecService).registrerMottattAppRec(any(AppRec.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
         verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
@@ -78,7 +78,7 @@ public class FellesformatRuterTest {
 
         verify(mottakQueueEia2MeldingerProvider).sendTilEia(any(Fellesformat.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
-        verify(appRecService, never()).doSomething(any(AppRec.class));
+        verify(appRecService, never()).registrerMottattAppRec(any(AppRec.class));
         verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
     }
 
@@ -96,7 +96,7 @@ public class FellesformatRuterTest {
         verify(mottakQueueEbrevKvitteringProvider).sendTilEMottak(eq("AppRecMessage"));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
-        verify(appRecService, never()).doSomething(any(AppRec.class));
+        verify(appRecService, never()).registrerMottattAppRec(any(AppRec.class));
     }
 
     @Test(expected = IllegalArgumentException.class)
