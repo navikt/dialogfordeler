@@ -66,6 +66,7 @@ public class DialogmeldingServiceTest {
                         "                        <ns2:TypeId V=\"ENH\" S=\"2.16.578.1.12.4.1.1.9051\" DN=\"Organisasjonsnummeret i Enhetsregisteret\"/>\n" +
                         "                    </ns2:Ident>\n" +
                         "                    <ns2:Address>\n" +
+                        "                        <ns2:Type V=\"RES\" DN=\"Besøksadresse\"/>\n" +
                         "                        <ns2:StreetAdr>adresse</ns2:StreetAdr>\n" +
                         "                        <ns2:PostalCode>postnummer</ns2:PostalCode>\n" +
                         "                        <ns2:City>poststed</ns2:City>\n" +
