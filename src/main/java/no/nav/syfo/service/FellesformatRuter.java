@@ -7,13 +7,15 @@ import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
 import no.nav.syfo.provider.mq.MottakQueueEbrevKvitteringProvider;
 import no.nav.syfo.provider.mq.MottakQueueEia2MeldingerProvider;
-import no.nav.syfo.repository.MeldingIdRepository;
+import no.nav.syfo.repository.MeldingLoggRepository;
+import no.nav.syfo.repository.MeldingRepository;
 import org.springframework.stereotype.Service;
 
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.Stream.concat;
 import static no.nav.syfo.domain.enums.FellesformatType.EIA_MELDING;
 import static no.nav.syfo.domain.enums.FellesformatType.UKJENT_APPREC;
+import static no.nav.syfo.domain.enums.MeldingLoggType.INNKOMMENDE_APPREC;
 
 @Service
 @Slf4j
@@ -23,18 +25,21 @@ public class FellesformatRuter {
     private MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider;
     private MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider;
 
-    private MeldingIdRepository meldingIdRepository;
+    private MeldingRepository meldingRepository;
+    private MeldingLoggRepository meldingLoggRepository;
 
     public FellesformatRuter(AppRecService appRecService,
                              SyfoMeldingService syfoMeldingService,
                              MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider,
                              MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider,
-                             MeldingIdRepository meldingIdRepository) {
+                             MeldingRepository meldingRepository,
+                             MeldingLoggRepository meldingLoggRepository) {
         this.appRecService = appRecService;
         this.syfoMeldingService = syfoMeldingService;
         this.mottakQueueEia2MeldingerProvider = mottakQueueEia2MeldingerProvider;
         this.mottakQueueEbrevKvitteringProvider = mottakQueueEbrevKvitteringProvider;
-        this.meldingIdRepository = meldingIdRepository;
+        this.meldingRepository = meldingRepository;
+        this.meldingLoggRepository = meldingLoggRepository;
     }
 
     public void evaluer(Fellesformat fellesformat) {
@@ -51,6 +56,11 @@ public class FellesformatRuter {
         switch (type) {
             case SYFO_MELDING:
                 fellesformat.getAppRecStream().forEach(appRecService::registrerMottattAppRec);
+                fellesformat.getAppRecStream().forEach(appRec ->
+                        meldingLoggRepository.loggMelding(
+                                fellesformat.getMessage(),
+                                meldingRepository.finnIdForMeldingId(appRec.originalMessageId()),
+                                INNKOMMENDE_APPREC));
                 break;
             case UKJENT_APPREC:
                 mottakQueueEbrevKvitteringProvider.sendTilEMottak(fellesformat.getMessage());
@@ -74,7 +84,7 @@ public class FellesformatRuter {
     }
 
     private FellesformatType identifiserAppRec(Fellesformat fellesformat) {
-        return meldingIdRepository.finnMeldingstypeForMeldingIdSet(
+        return meldingRepository.finnMeldingstypeForMeldingIdSet(
                 fellesformat
                         .getAppRecStream()
                         .map(AppRec::originalMessageId)
@@ -83,7 +93,7 @@ public class FellesformatRuter {
     }
 
     private FellesformatType identifiserHodemelding(Fellesformat fellesformat) {
-        return meldingIdRepository.finnMeldingstypeForDokumentIdSet(
+        return meldingRepository.finnMeldingstypeForDokumentIdSet(
                 concat(
                         fellesformat
                                 .getHodemeldingStream()

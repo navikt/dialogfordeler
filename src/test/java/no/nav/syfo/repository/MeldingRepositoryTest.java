@@ -22,11 +22,11 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MeldingIdRepositoryTest {
+public class MeldingRepositoryTest {
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @InjectMocks
-    private MeldingIdRepository meldingIdRepository;
+    private MeldingRepository meldingRepository;
 
     @Test
     public void finnMeldingstypeForMeldingIdSet() {
@@ -34,7 +34,7 @@ public class MeldingIdRepositoryTest {
                 .thenReturn(singletonList(SYFO_MELDING));
 
         Optional<FellesformatType> fellesformatType =
-                meldingIdRepository.finnMeldingstypeForMeldingIdSet(singleton("meldingId"));
+                meldingRepository.finnMeldingstypeForMeldingIdSet(singleton("meldingId"));
 
         verify(namedParameterJdbcTemplate).query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class));
         assertThat(fellesformatType).hasValue(SYFO_MELDING);
@@ -45,7 +45,7 @@ public class MeldingIdRepositoryTest {
         when(namedParameterJdbcTemplate.query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class)))
                 .thenReturn(singletonList(SYFO_MELDING));
 
-        meldingIdRepository.finnMeldingstypeForMeldingIdSet(singleton("meldingId"));
+        meldingRepository.finnMeldingstypeForMeldingIdSet(singleton("meldingId"));
 
         ArgumentCaptor<RowMapper<FellesformatType>> captor = ArgumentCaptor.forClass(RowMapper.class);
         verify(namedParameterJdbcTemplate).query(anyString(), any(MapSqlParameterSource.class), captor.capture());
@@ -59,7 +59,7 @@ public class MeldingIdRepositoryTest {
     @Test
     public void finnMeldingstypeForMeldingIdSetIngenMeldingId() {
         Optional<FellesformatType> fellesformatType =
-                meldingIdRepository.finnMeldingstypeForMeldingIdSet(emptySet());
+                meldingRepository.finnMeldingstypeForMeldingIdSet(emptySet());
 
         verify(namedParameterJdbcTemplate, never()).query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class));
         assertThat(fellesformatType).isEmpty();
@@ -71,7 +71,7 @@ public class MeldingIdRepositoryTest {
                 .thenReturn(singletonList(SYFO_MELDING));
 
         Optional<FellesformatType> fellesformatType =
-                meldingIdRepository.finnMeldingstypeForDokumentIdSet(singleton("dokumentId"));
+                meldingRepository.finnMeldingstypeForDokumentIdSet(singleton("dokumentId"));
 
         verify(namedParameterJdbcTemplate).query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class));
         assertThat(fellesformatType).hasValue(SYFO_MELDING);
@@ -82,7 +82,7 @@ public class MeldingIdRepositoryTest {
         when(namedParameterJdbcTemplate.query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class)))
                 .thenReturn(singletonList(SYFO_MELDING));
 
-        meldingIdRepository.finnMeldingstypeForDokumentIdSet(singleton("dokumentId"));
+        meldingRepository.finnMeldingstypeForDokumentIdSet(singleton("dokumentId"));
 
         ArgumentCaptor<RowMapper<FellesformatType>> captor = ArgumentCaptor.forClass(RowMapper.class);
         verify(namedParameterJdbcTemplate).query(anyString(), any(MapSqlParameterSource.class), captor.capture());
@@ -96,7 +96,7 @@ public class MeldingIdRepositoryTest {
     @Test
     public void finnMeldingstypeForDokumentIdSetIngenDokumentId() {
         Optional<FellesformatType> fellesformatType =
-                meldingIdRepository.finnMeldingstypeForDokumentIdSet(emptySet());
+                meldingRepository.finnMeldingstypeForDokumentIdSet(emptySet());
 
         verify(namedParameterJdbcTemplate, never()).query(anyString(), any(MapSqlParameterSource.class), any(RowMapper.class));
         assertThat(fellesformatType).isEmpty();

@@ -1,6 +1,7 @@
 package no.nav.syfo.web.rest.dialogmelding;
 
 import no.nav.syfo.provider.mq.MottakQueueUtsendingProvider;
+import no.nav.syfo.repository.MeldingLoggRepository;
 import no.nav.syfo.web.rest.dialogmelding.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,15 +11,17 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static no.nav.syfo.domain.enums.FellesformatType.SYFO_MELDING;
+import static no.nav.syfo.domain.enums.MeldingLoggType.UTAAENDE_MELDING;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DialogmeldingServiceTest {
     @Mock
     private DialogmeldingRespository dialogmeldingRespository;
+    @Mock
+    private MeldingLoggRepository meldingLoggRepository;
     @Mock
     private MottakQueueUtsendingProvider mottakQueue;
     @InjectMocks
@@ -31,6 +34,7 @@ public class DialogmeldingServiceTest {
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
         verify(dialogmeldingRespository).registrerDialogmelding(anyString(), anyString(), eq(SYFO_MELDING));
         verify(mottakQueue).sendTilEMottak(argumentCaptor.capture());
+        verify(meldingLoggRepository).loggMelding(anyString(), anyLong(), eq(UTAAENDE_MELDING));
 
         assertThat(argumentCaptor.getValue())
                 .contains("<EI_fellesformat xmlns=\"http://www.nav.no/xml/eiff/2/\" xmlns:ns6=\"http://www.kith.no/xmlstds/base64container\" xmlns:ns5=\"http://www.kith.no/xmlstds/felleskomponent1\" xmlns:ns2=\"http://www.kith.no/xmlstds/msghead/2006-05-24\" xmlns:ns4=\"http://www.kith.no/xmlstds/dialog/2006-10-11\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n" +

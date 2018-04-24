@@ -31,7 +31,6 @@ public class MottakQueueUtsendingProvider {
     public void sendTilEMottak(@NotNull String message) {
         if (leggMeldingerPaKo) {
             log.info("Melding til eMottak: Sender");
-            log.info("Melding med address:\n" + message);
             jmsSender.accept(message);
         } else {
             log.info("Melding til eMottak: Sending deaktivert");

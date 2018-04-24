@@ -5,7 +5,8 @@ import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
 import no.nav.syfo.provider.mq.MottakQueueEbrevKvitteringProvider;
 import no.nav.syfo.provider.mq.MottakQueueEia2MeldingerProvider;
-import no.nav.syfo.repository.MeldingIdRepository;
+import no.nav.syfo.repository.MeldingLoggRepository;
+import no.nav.syfo.repository.MeldingRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 import static java.util.stream.Stream.of;
 import static no.nav.syfo.domain.enums.FellesformatType.*;
+import static no.nav.syfo.domain.enums.MeldingLoggType.INNKOMMENDE_APPREC;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -30,7 +32,9 @@ public class FellesformatRuterTest {
     @Mock
     private MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider;
     @Mock
-    private MeldingIdRepository meldingIdRepository;
+    private MeldingRepository meldingRepository;
+    @Mock
+    private MeldingLoggRepository meldingLoggRepository;
     @InjectMocks
     private FellesformatRuter fellesformatRuter;
 
@@ -40,12 +44,13 @@ public class FellesformatRuterTest {
         Hodemelding hodemelding = mock(Hodemelding.class);
         when(fellesformat.erAppRec()).thenReturn(false);
         when(fellesformat.getHodemeldingStream()).thenAnswer(i -> of(hodemelding));
-        when(meldingIdRepository.finnMeldingstypeForDokumentIdSet(anySet())).thenReturn(Optional.of(SYFO_MELDING));
+        when(meldingRepository.finnMeldingstypeForDokumentIdSet(anySet())).thenReturn(Optional.of(SYFO_MELDING));
 
         fellesformatRuter.evaluer(fellesformat);
 
         verify(syfoMeldingService).doSomething(any(Hodemelding.class));
         verify(appRecService, never()).registrerMottattAppRec(any(AppRec.class));
+        verify(meldingLoggRepository, never()).loggMelding(anyString(), anyLong(), eq(INNKOMMENDE_APPREC));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
         verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
     }
@@ -56,11 +61,13 @@ public class FellesformatRuterTest {
         AppRec appRec = mock(AppRec.class);
         when(fellesformat.erAppRec()).thenReturn(true);
         when(fellesformat.getAppRecStream()).thenAnswer(i -> of(appRec));
-        when(meldingIdRepository.finnMeldingstypeForMeldingIdSet(anySet())).thenReturn(Optional.of(SYFO_MELDING));
+        when(meldingRepository.finnMeldingstypeForMeldingIdSet(anySet())).thenReturn(Optional.of(SYFO_MELDING));
+        when(fellesformat.getMessage()).thenReturn("AppRecMessage");
 
         fellesformatRuter.evaluer(fellesformat);
 
         verify(appRecService).registrerMottattAppRec(any(AppRec.class));
+        verify(meldingLoggRepository).loggMelding(eq("AppRecMessage"), anyLong(), eq(INNKOMMENDE_APPREC));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
         verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
@@ -72,13 +79,14 @@ public class FellesformatRuterTest {
         Hodemelding hodemelding = mock(Hodemelding.class);
         when(fellesformat.erAppRec()).thenReturn(false);
         when(fellesformat.getHodemeldingStream()).thenAnswer(i -> of(hodemelding));
-        when(meldingIdRepository.finnMeldingstypeForDokumentIdSet(anySet())).thenReturn(Optional.empty());
+        when(meldingRepository.finnMeldingstypeForDokumentIdSet(anySet())).thenReturn(Optional.empty());
 
         fellesformatRuter.evaluer(fellesformat);
 
         verify(mottakQueueEia2MeldingerProvider).sendTilEia(any(Fellesformat.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
         verify(appRecService, never()).registrerMottattAppRec(any(AppRec.class));
+        verify(meldingLoggRepository, never()).loggMelding(anyString(), anyLong(), eq(INNKOMMENDE_APPREC));
         verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
     }
 
@@ -88,7 +96,7 @@ public class FellesformatRuterTest {
         AppRec appRec = mock(AppRec.class);
         when(fellesformat.erAppRec()).thenReturn(true);
         when(fellesformat.getAppRecStream()).thenAnswer(i -> of(appRec));
-        when(meldingIdRepository.finnMeldingstypeForMeldingIdSet(anySet())).thenReturn(Optional.empty());
+        when(meldingRepository.finnMeldingstypeForMeldingIdSet(anySet())).thenReturn(Optional.empty());
         when(fellesformat.getMessage()).thenReturn("AppRecMessage");
 
         fellesformatRuter.evaluer(fellesformat);
@@ -97,6 +105,7 @@ public class FellesformatRuterTest {
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
         verify(appRecService, never()).registrerMottattAppRec(any(AppRec.class));
+        verify(meldingLoggRepository, never()).loggMelding(anyString(), anyLong(), eq(INNKOMMENDE_APPREC));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -105,7 +114,7 @@ public class FellesformatRuterTest {
         Hodemelding hodemelding = mock(Hodemelding.class);
         when(fellesformat.erAppRec()).thenReturn(false);
         when(fellesformat.getHodemeldingStream()).thenAnswer(i -> of(hodemelding));
-        when(meldingIdRepository.finnMeldingstypeForDokumentIdSet(anySet())).thenReturn(Optional.of(UKJENT_APPREC));
+        when(meldingRepository.finnMeldingstypeForDokumentIdSet(anySet())).thenReturn(Optional.of(UKJENT_APPREC));
 
         fellesformatRuter.evaluer(fellesformat);
     }
@@ -116,7 +125,7 @@ public class FellesformatRuterTest {
         AppRec appRec = mock(AppRec.class);
         when(fellesformat.erAppRec()).thenReturn(true);
         when(fellesformat.getAppRecStream()).thenAnswer(i -> of(appRec));
-        when(meldingIdRepository.finnMeldingstypeForMeldingIdSet(anySet())).thenReturn(Optional.of(EIA_MELDING));
+        when(meldingRepository.finnMeldingstypeForMeldingIdSet(anySet())).thenReturn(Optional.of(EIA_MELDING));
 
         fellesformatRuter.evaluer(fellesformat);
     }
