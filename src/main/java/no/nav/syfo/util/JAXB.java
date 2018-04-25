@@ -94,7 +94,6 @@ public final class JAXB {
             Marshaller marshaller = DIALOGMELDING_CONTEXT_1_0.createMarshaller();
             marshaller.setProperty(JAXB_FORMATTED_OUTPUT, TRUE);
             marshaller.setProperty(JAXB_ENCODING, "UTF-8");
-            marshaller.setProperty(JAXB_FRAGMENT, true);
             marshaller.marshal(element, new StreamResult(writer));
             return writer.toString();
         } catch (JAXBException e) {
@@ -108,7 +107,6 @@ public final class JAXB {
             Marshaller marshaller = DIALOGMELDING_CONTEXT_1_1.createMarshaller();
             marshaller.setProperty(JAXB_FORMATTED_OUTPUT, TRUE);
             marshaller.setProperty(JAXB_ENCODING, "UTF-8");
-            marshaller.setProperty(JAXB_FRAGMENT, true);
             marshaller.marshal(element, new StreamResult(writer));
             return writer.toString();
         } catch (JAXBException e) {
@@ -122,7 +120,6 @@ public final class JAXB {
             Marshaller marshaller = APPREC_CONTEXT_1_0.createMarshaller();
             marshaller.setProperty(JAXB_FORMATTED_OUTPUT, TRUE);
             marshaller.setProperty(JAXB_ENCODING, "UTF-8");
-            marshaller.setProperty(JAXB_FRAGMENT, true);
             marshaller.marshal(element, new StreamResult(writer));
             return writer.toString();
         } catch (JAXBException e) {
@@ -136,7 +133,6 @@ public final class JAXB {
             Marshaller marshaller = APPREC_CONTEXT_1_1.createMarshaller();
             marshaller.setProperty(JAXB_FORMATTED_OUTPUT, TRUE);
             marshaller.setProperty(JAXB_ENCODING, "UTF-8");
-            marshaller.setProperty(JAXB_FRAGMENT, true);
             marshaller.marshal(element, new StreamResult(writer));
             return writer.toString();
         } catch (JAXBException e) {

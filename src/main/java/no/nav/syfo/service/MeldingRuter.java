@@ -18,7 +18,7 @@ public class MeldingRuter {
         String message = textMessage.getText();
         Object melding = JAXB.unmarshalMelding(message);
         if (melding instanceof XMLEIFellesformat) {
-            fellesformatRuter.evaluer(new Fellesformat(message, (XMLEIFellesformat) melding));
+            fellesformatRuter.evaluer(new Fellesformat((XMLEIFellesformat) melding, message));
         } else {
             throw new MeldingInboundException("Melding er ikke Fellesformat");
         }

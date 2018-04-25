@@ -9,7 +9,13 @@ public class AppRec1_0 implements AppRec {
     @NonNull
     private XMLAppRec appRec;
 
-    public String originalMessageId(){
+    @Override
+    public String originalMessageId() {
         return appRec.getOriginalMsgId().getId();
+    }
+
+    @Override
+    public String statustekst() {
+        return appRec.getStatus().getV() + " - " + appRec.getStatus().getDN();
     }
 }

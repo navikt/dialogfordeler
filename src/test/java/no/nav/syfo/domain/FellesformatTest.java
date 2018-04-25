@@ -17,7 +17,7 @@ public class FellesformatTest {
         String message = "Message";
         String melding = fellesformat(hodemelding(DIALOG0));
         XMLEIFellesformat xmlFellesformat = JAXB.unmarshalMelding(melding);
-        Fellesformat fellesformat = new Fellesformat(message, xmlFellesformat);
+        Fellesformat fellesformat = new Fellesformat(xmlFellesformat, message);
 
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(fellesformat.getMessage()).isEqualTo(message);
@@ -32,7 +32,7 @@ public class FellesformatTest {
         String message = "Message";
         String melding = fellesformat(hodemelding(NOTAT1));
         XMLEIFellesformat xmlFellesformat = JAXB.unmarshalMelding(melding);
-        Fellesformat fellesformat = new Fellesformat(message, xmlFellesformat);
+        Fellesformat fellesformat = new Fellesformat(xmlFellesformat, message);
 
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(fellesformat.getMessage()).isEqualTo(message);
@@ -47,7 +47,7 @@ public class FellesformatTest {
         String message = "Message";
         String melding = fellesformat(hodemelding(VEDLEGG));
         XMLEIFellesformat xmlFellesformat = JAXB.unmarshalMelding(melding);
-        Fellesformat fellesformat = new Fellesformat(message, xmlFellesformat);
+        Fellesformat fellesformat = new Fellesformat(xmlFellesformat, message);
 
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(fellesformat.getMessage()).isEqualTo(message);

@@ -1,6 +1,6 @@
 package no.nav.syfo.web.rest.dialogmelding;
 
-import no.nav.syfo.web.rest.dialogmelding.model.RSDialogmelding;
+import no.nav.syfo.web.rest.dialogmelding.model.RSHodemelding;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,9 +19,9 @@ public class DialogmeldingControllerTest {
 
     @Test
     public void opprettDialogmelding() {
-        RSDialogmelding dialogmelding = new RSDialogmelding();
+        RSHodemelding dialogmelding = new RSHodemelding();
 
-        dialogmeldingController.opprettDialogmelding(dialogmelding);
+        dialogmeldingController.sendOppfolgingsplan(dialogmelding);
 
         verify(dialogmeldingService).registrerDialogmelding(same(dialogmelding));
     }

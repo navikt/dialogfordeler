@@ -44,19 +44,19 @@ public class DialogmeldingControllerSecurityTest {
     @Test(expected = AuthenticationCredentialsNotFoundException.class)
     public void apiUnauthenticated() throws Exception {
         SecurityContextHolder.clearContext();
-        dialogmeldingController.opprettDialogmelding(null);
+        dialogmeldingController.sendOppfolgingsplan(null);
     }
 
     @Test
     @WithMockUser(username = "srvTest")
     public void apiAuthenticated() throws Exception {
         when(kontrollerServicebruker.erServicebruker(any())).thenReturn(true);
-        dialogmeldingController.opprettDialogmelding(null);
+        dialogmeldingController.sendOppfolgingsplan(null);
     }
 
     @Test(expected = AccessDeniedException.class)
     @WithMockUser(username = "Z000000")
     public void apiAuthenticatedWrongUser() throws Exception {
-        dialogmeldingController.opprettDialogmelding(null);
+        dialogmeldingController.sendOppfolgingsplan(null);
     }
 }
