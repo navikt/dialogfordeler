@@ -13,7 +13,7 @@ public interface Dialogmelding {
 
     boolean erNotat();
 
-    Stream<String> getDokIdForespStream();
+    Stream<String> getDokIdForesporselStream();
 
     Stream<String> getDokIdNotatStream();
 }

@@ -52,8 +52,8 @@ public class Dokument {
         return !vedleggListe.isEmpty();
     }
 
-    public Stream<String> getDokIdForespStream() {
-        return dialogmeldingListe.stream().flatMap(Dialogmelding::getDokIdForespStream);
+    public Stream<String> getDokIdForesporselStream() {
+        return dialogmeldingListe.stream().flatMap(Dialogmelding::getDokIdForesporselStream);
     }
 
     public Stream<String> getDokIdNotatStream() {

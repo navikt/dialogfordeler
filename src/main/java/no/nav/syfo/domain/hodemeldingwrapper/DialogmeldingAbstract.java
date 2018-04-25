@@ -24,8 +24,8 @@ public abstract class DialogmeldingAbstract implements Dialogmelding {
     }
 
     @Override
-    public Stream<String> getDokIdForespStream() {
-        return foresporselListe.stream().map(Foresporsel::getDokIdForesp);
+    public Stream<String> getDokIdForesporselStream() {
+        return foresporselListe.stream().map(Foresporsel::getDokIdForesporsel);
     }
 
     @Override

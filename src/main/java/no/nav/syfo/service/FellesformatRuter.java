@@ -100,7 +100,7 @@ public class FellesformatRuter {
                                 .flatMap(Hodemelding::getDokIdNotatStream),
                         fellesformat
                                 .getHodemeldingStream()
-                                .flatMap(Hodemelding::getDokIdForespStream))
+                                .flatMap(Hodemelding::getDokIdForesporselStream))
                         .collect(toSet()))
                 .orElse(EIA_MELDING);
     }

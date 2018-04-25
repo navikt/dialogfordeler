@@ -10,7 +10,7 @@ public class Foresporsel1_0 implements Foresporsel {
     private XMLForesporsel xmlForesporsel;
 
     @Override
-    public String getDokIdForesp() {
+    public String getDokIdForesporsel() {
         return xmlForesporsel.getDokIdForesp();
     }
 }
