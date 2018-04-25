@@ -17,7 +17,7 @@ public class AppRecService {
     public void registrerMottattAppRec(AppRec appRec) {
         String meldingId = appRec.originalMessageId();
 
-        log.info("Mottatt AppRec med meldingId {}", meldingId);
+        log.info("Mottatt AppRec med meldingId {} og statustekst {}", meldingId, appRec.statustekst());
 
         appRecRepository.registrerMottattAppRec(meldingId);
     }

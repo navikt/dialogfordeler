@@ -52,7 +52,7 @@ public class FellesformatRuter {
 
     private void evaluerAppRec(Fellesformat fellesformat) {
         FellesformatType type = identifiserAppRec(fellesformat);
-        log.info("Mottatt apprec av type {}:\n{}", type, fellesformat.getMessage());
+        log.info("Mottatt apprec av type {}", type);
         switch (type) {
             case SYFO_MELDING:
                 fellesformat.getAppRecStream().forEach(appRecService::registrerMottattAppRec);
