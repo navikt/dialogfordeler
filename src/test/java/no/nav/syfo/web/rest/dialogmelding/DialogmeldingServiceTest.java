@@ -76,7 +76,7 @@ public class DialogmeldingServiceTest {
                         "                        <ns2:City>poststed</ns2:City>\n" +
                         "                    </ns2:Address>\n" +
                         "                    <ns2:HealthcareProfessional>\n" +
-                        "                        <ns2:RoleToPatient V=\"4\"/>\n" +
+                        "                        <ns2:RoleToPatient V=\"6\" S=\"2.16.578.1.12.4.1.1.9034\" DN=\"Fastlege\"/>\n" +
                         "                        <ns2:FamilyName>etternavn</ns2:FamilyName>\n" +
                         "                        <ns2:MiddleName>mellomnavn</ns2:MiddleName>\n" +
                         "                        <ns2:GivenName>fornavn</ns2:GivenName>\n" +
