@@ -30,6 +30,8 @@ public class DialogmeldingerConsumer {
         } catch (JMSException e) {
             log.error("Feil ved lesing av melding", e);
             throw new MeldingInboundException("Feil ved lesing av melding", e);
+        } finally {
+            remove(MDC_CALL_ID);
         }
     }
 

@@ -14,11 +14,11 @@ public class AppRecService {
         this.appRecRepository = appRecRepository;
     }
 
-    public void registrerMottattAppRec(AppRec appRec) {
+    public boolean registrerMottattAppRec(AppRec appRec) {
         String meldingId = appRec.originalMessageId();
 
         log.info("Mottatt AppRec med meldingId {} og statustekst {}", meldingId, appRec.statustekst());
 
-        appRecRepository.registrerMottattAppRec(meldingId);
+        return appRecRepository.registrerMottattAppRec(meldingId);
     }
 }

@@ -55,12 +55,15 @@ public class FellesformatRuter {
         log.info("Mottatt apprec av type {}", type);
         switch (type) {
             case SYFO_MELDING:
-                fellesformat.getAppRecStream().forEach(appRecService::registrerMottattAppRec);
-                fellesformat.getAppRecStream().forEach(appRec ->
+                fellesformat.getAppRecStream().forEach(appRec -> {
+                    boolean appRecRegistrert = appRecService.registrerMottattAppRec(appRec);
+                    if (appRecRegistrert) {
                         meldingLoggRepository.loggMelding(
                                 fellesformat.getMessage(),
                                 meldingRepository.finnIdForMeldingId(appRec.originalMessageId()),
-                                INNKOMMENDE_APPREC));
+                                INNKOMMENDE_APPREC);
+                    }
+                });
                 break;
             case UKJENT_APPREC:
                 mottakQueueEbrevKvitteringProvider.sendTilEMottak(fellesformat.getMessage());
