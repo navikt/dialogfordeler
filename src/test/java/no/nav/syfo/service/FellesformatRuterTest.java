@@ -1,6 +1,7 @@
 package no.nav.syfo.service;
 
 import no.nav.syfo.domain.apprecwrapper.AppRec;
+import no.nav.syfo.domain.enums.MeldingLoggType;
 import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
 import no.nav.syfo.provider.mq.MottakQueueEbrevKvitteringProvider;
@@ -61,6 +62,7 @@ public class FellesformatRuterTest {
         AppRec appRec = mock(AppRec.class);
         when(fellesformat.erAppRec()).thenReturn(true);
         when(fellesformat.getAppRecStream()).thenAnswer(i -> of(appRec));
+        when(appRecService.registrerMottattAppRec(any(AppRec.class))).thenReturn(true);
         when(meldingRepository.finnMeldingstypeForMeldingIdSet(anySet())).thenReturn(Optional.of(SYFO_MELDING));
         when(fellesformat.getMessage()).thenReturn("AppRecMessage");
 
@@ -68,6 +70,24 @@ public class FellesformatRuterTest {
 
         verify(appRecService).registrerMottattAppRec(any(AppRec.class));
         verify(meldingLoggRepository).loggMelding(eq("AppRecMessage"), anyLong(), eq(INNKOMMENDE_APPREC));
+        verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
+        verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
+        verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
+    }
+
+    @Test
+    public void evaluerErSyfoAppRecIkkeLoggMeldingHvisDuplikat() {
+        Fellesformat fellesformat = mock(Fellesformat.class);
+        AppRec appRec = mock(AppRec.class);
+        when(fellesformat.erAppRec()).thenReturn(true);
+        when(fellesformat.getAppRecStream()).thenAnswer(i -> of(appRec));
+        when(appRecService.registrerMottattAppRec(any(AppRec.class))).thenReturn(false);
+        when(meldingRepository.finnMeldingstypeForMeldingIdSet(anySet())).thenReturn(Optional.of(SYFO_MELDING));
+
+        fellesformatRuter.evaluer(fellesformat);
+
+        verify(appRecService).registrerMottattAppRec(any(AppRec.class));
+        verify(meldingLoggRepository, never()).loggMelding(anyString(), anyLong(), any(MeldingLoggType.class));
         verify(syfoMeldingService, never()).doSomething(any(Hodemelding.class));
         verify(mottakQueueEia2MeldingerProvider, never()).sendTilEia(any(Fellesformat.class));
         verify(mottakQueueEbrevKvitteringProvider, never()).sendTilEMottak(anyString());
