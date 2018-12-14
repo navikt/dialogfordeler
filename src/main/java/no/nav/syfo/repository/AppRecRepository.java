@@ -17,11 +17,15 @@ public class AppRecRepository {
     }
 
     public boolean registrerMottattAppRec(String meldingId) {
-        int oppdaterteRader = jdbcTemplate.update("UPDATE MELDING SET apprec_mottatt_tid = ? WHERE melding_id = ? AND apprec_mottatt_tid IS NULL",
+        int oppdaterteRader = jdbcTemplate.update(
+                "UPDATE MELDING SET apprec_mottatt_tid = ? WHERE melding_id = ? AND apprec_mottatt_tid IS NULL",
                 now(),
                 meldingId);
         if (oppdaterteRader == 0) {
-            Integer apprecMottattTidligere = jdbcTemplate.queryForObject("SELECT count(1) FROM MELDING WHERE melding_id = ? AND apprec_mottatt_tid IS NOT NULL", Integer.class);
+            Integer apprecMottattTidligere = jdbcTemplate.queryForObject(
+                    "SELECT count(1) FROM MELDING WHERE melding_id = ? AND apprec_mottatt_tid IS NOT NULL",
+                    Integer.class,
+                    meldingId);
 
             if (Integer.valueOf(1).equals(apprecMottattTidligere)) {
                 log.warn("AppRec allerede mottatt for meldingId " + meldingId);
