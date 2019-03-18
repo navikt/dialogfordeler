@@ -42,9 +42,9 @@ fasitResources:
     resourceType: restservice
     propertyMap:
       url: ABAC_URL
-  - alias: isso-jwks
-    resourceType: baseurl
-  - alias: isso-issuer
+  - alias: security-token-service-jwks
+    resourceType: restservice
+  - alias: security-token-service-issuer
     resourceType: baseurl
   - alias: mqGateway03
     resourceType: queueManager
