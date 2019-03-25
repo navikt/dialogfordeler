@@ -20,8 +20,8 @@ spring.datasource.username={Brukernavn til database}
 spring.datasource.password={Passord til database}
 spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver
 
-security-token-service-jwks.url={URL til STS ISSUER}
-security-token-service-issuer.url={URL til STS JWKS}
+security-token-service-jwks.url={URL til STS JWKS}
+security-token-service-issuer.url={URL til STS ISSUER}
 
 abac.url={URL til ABAC}
 serviceuser.username={Brukernavn servicebruker}
