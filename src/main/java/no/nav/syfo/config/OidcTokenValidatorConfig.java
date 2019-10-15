@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 public class OidcTokenValidatorConfig {
     @Bean
-    public VerificationKeyResolver verificationKeyResolver(@Value("${security-token-service-jwks.url}") String stsJwksUrl) {
+    public VerificationKeyResolver verificationKeyResolver(@Value("${security.token.service.jwks.url}") String stsJwksUrl) {
         return new HttpsJwksVerificationKeyResolver(new HttpsJwks(stsJwksUrl));
     }
 }
