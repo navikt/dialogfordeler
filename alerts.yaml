@@ -13,6 +13,16 @@ spec:
     - alert: dialogfordeler is down
       expr: up{app="dialogfordeler", job="kubernetes-pods"} == 0
       for: 2m
-      description: "App {{ $labels.app }} er nede i namespace {{ $labels.kubernetes_namespace }}"
+      description: "App {{ $labels.app }} er nede i prod"
       action: "Trenger å sparke igang poden(e) igjen, bruk `k delete pod -n {{ $labels.kubernetes_namespace }} {{ $labels.kubernetes_pod_name }}` på alle poder som er nede"
       severity: danger
+    - alert: dialogfordeler jms pool exception
+      expor: rate(dialogfordeler_jms_error_pool{app="dialogfordeler"}[5m]) > 0
+      description: "App {{ $labels.app }} får JMSException i prod"
+      action: "Trenger å sparke igang poden(e) igjen, bruk `k delete pod -n {{ $labels.kubernetes_namespace }} {{ $labels.kubernetes_pod_name }}` på alle poder som er nede"
+      severity: danger
+    - alert: dialogfordeler jms general exception
+      expor: rate(dialogfordeler_jms_error_general{app="dialogfordeler"}[5m]) > 0
+      description: "App {{ $labels.app }} får ExhautedPoolException fra Atomikos/JMS i prod"
+      action: "Bør ta en titt på logger i Kibana for å se om noe bør fikses"
+      severity: warning
