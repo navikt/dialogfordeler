@@ -39,6 +39,7 @@ public class DialogmeldingerConsumer {
             COUNTER_JMS_ERROR_GENERAL.increment();
         } catch (PoolExhaustedException e) {
             log.error("Fikk PoolExhaustedException:", e);
+            throw new MeldingInboundException("Connection pool er tomt", e);
             COUNTER_JMS_ERROR_POOL.increment();
         } finally {
             remove(MDC_CALL_ID);
