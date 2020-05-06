@@ -6,6 +6,7 @@ import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
 import no.nav.syfo.provider.mq.MottakQueueEbrevKvitteringProvider;
 import no.nav.syfo.provider.mq.MottakQueueEia2MeldingerProvider;
+import no.nav.syfo.provider.mq.MottakQueuePadm2MeldingerProvider;
 import no.nav.syfo.repository.MeldingLoggRepository;
 import no.nav.syfo.repository.MeldingRepository;
 import org.junit.Test;
@@ -30,6 +31,8 @@ public class FellesformatRuterTest {
     private AppRecService appRecService;
     @Mock
     private MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider;
+    @Mock
+    private MottakQueuePadm2MeldingerProvider mottakQueuePadm2MeldingerProvider;
     @Mock
     private MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider;
     @Mock

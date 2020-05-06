@@ -7,6 +7,7 @@ import no.nav.syfo.domain.fellesformatwrapper.Fellesformat;
 import no.nav.syfo.domain.hodemeldingwrapper.Hodemelding;
 import no.nav.syfo.provider.mq.MottakQueueEbrevKvitteringProvider;
 import no.nav.syfo.provider.mq.MottakQueueEia2MeldingerProvider;
+import no.nav.syfo.provider.mq.MottakQueuePadm2MeldingerProvider;
 import no.nav.syfo.repository.MeldingLoggRepository;
 import no.nav.syfo.repository.MeldingRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class FellesformatRuter {
     private AppRecService appRecService;
     private SyfoMeldingService syfoMeldingService;
     private MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider;
+    private MottakQueuePadm2MeldingerProvider mottakQueuePadm2MeldingerProvider;
     private MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider;
 
     private MeldingRepository meldingRepository;
@@ -31,12 +33,14 @@ public class FellesformatRuter {
     public FellesformatRuter(AppRecService appRecService,
                              SyfoMeldingService syfoMeldingService,
                              MottakQueueEia2MeldingerProvider mottakQueueEia2MeldingerProvider,
+                             MottakQueuePadm2MeldingerProvider mottakQueuePadm2MeldingerProvider,
                              MottakQueueEbrevKvitteringProvider mottakQueueEbrevKvitteringProvider,
                              MeldingRepository meldingRepository,
                              MeldingLoggRepository meldingLoggRepository) {
         this.appRecService = appRecService;
         this.syfoMeldingService = syfoMeldingService;
         this.mottakQueueEia2MeldingerProvider = mottakQueueEia2MeldingerProvider;
+        this.mottakQueuePadm2MeldingerProvider = mottakQueuePadm2MeldingerProvider;
         this.mottakQueueEbrevKvitteringProvider = mottakQueueEbrevKvitteringProvider;
         this.meldingRepository = meldingRepository;
         this.meldingLoggRepository = meldingLoggRepository;
@@ -80,6 +84,7 @@ public class FellesformatRuter {
                 break;
             case EIA_MELDING:
                 mottakQueueEia2MeldingerProvider.sendTilEia(fellesformat);
+                mottakQueuePadm2MeldingerProvider.sendTilEia(fellesformat);
                 break;
             default:
                 throw new IllegalArgumentException("Kan ikke identifisere melding");

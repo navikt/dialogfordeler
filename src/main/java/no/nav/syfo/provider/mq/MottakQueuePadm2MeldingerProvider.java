@@ -15,42 +15,40 @@ import static io.micrometer.core.instrument.Metrics.counter;
 import static java.util.Optional.of;
 import static no.nav.syfo.util.JmsUtil.messageCreator;
 
-/**
- * QA.T414.FS06_EIA_MELDINGER
- */
+
 @Component
 @Slf4j
-public class MottakQueueEia2MeldingerProvider {
+public class MottakQueuePadm2MeldingerProvider {
     private static final String APPREC_LABEL = "AppRec Eia";
     private static final String HODEMELDING_LABEL = "Hodemelding Eia";
     private static final String ANNEN_MELDING_LABEL = "Annen melding Eia";
     private static final String MELDINGSTYPE_LABELNAME = "type";
 
-    private static final Counter COUNTER_APPREC_LABEL = counter("mq_send_eia_meldinger", MELDINGSTYPE_LABELNAME, APPREC_LABEL);
-    private static final Counter COUNTER_HODEMELDING_LABEL = counter("mq_send_eia_meldinger", MELDINGSTYPE_LABELNAME, HODEMELDING_LABEL);
-    private static final Counter COUNTER_ANNEN_MELDING_LABEL = counter("mq_send_eia_meldinger", MELDINGSTYPE_LABELNAME, ANNEN_MELDING_LABEL);
+    private static final Counter COUNTER_APPREC_LABEL = counter("mq_send_Padm2_meldinger", MELDINGSTYPE_LABELNAME, APPREC_LABEL);
+    private static final Counter COUNTER_HODEMELDING_LABEL = counter("mq_send_Padm2_meldinger", MELDINGSTYPE_LABELNAME, HODEMELDING_LABEL);
+    private static final Counter COUNTER_ANNEN_MELDING_LABEL = counter("mq_send_Padm2_meldinger", MELDINGSTYPE_LABELNAME, ANNEN_MELDING_LABEL);
 
-    private JmsTemplate eia2JmsTemplate;
+    private JmsTemplate padm2JmsTemplate;
     private boolean leggMeldingerPaKo;
 
-    public MottakQueueEia2MeldingerProvider(@Qualifier("Eia2JmsTemplate") JmsTemplate eia2JmsTemplate,
+    public MottakQueuePadm2MeldingerProvider(@Qualifier("Padm2JmsTemplate") JmsTemplate padm2JmsTemplate,
                                             @Value("${toggle.legg.meldinger.pa.ko:true}") boolean leggMeldingerPaKo) {
-        this.eia2JmsTemplate = eia2JmsTemplate;
+        this.padm2JmsTemplate = padm2JmsTemplate;
         this.leggMeldingerPaKo = leggMeldingerPaKo;
     }
 
-    private final Consumer<String> jmsSender = message -> eia2JmsTemplate.send(messageCreator(message));
+    private final Consumer<String> jmsSender = message -> padm2JmsTemplate.send(messageCreator(message));
 
     public void sendTilEia(Fellesformat fellesformat) {
         Counter counter;
         if (fellesformat.erAppRec()) {
-            log.info("AppRec til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
+            log.info("AppRec til Padm2: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
             counter = COUNTER_APPREC_LABEL;
         } else if (fellesformat.erHodemelding()) {
-            log.info("Hodemelding til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
+            log.info("Hodemelding til Padm2: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
             counter = COUNTER_HODEMELDING_LABEL;
         } else {
-            log.info("ukjent melding til eia: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
+            log.info("ukjent melding til Padm2: " + (leggMeldingerPaKo ? "Sender" : "Sending deaktivert"));
             counter = COUNTER_ANNEN_MELDING_LABEL;
         }
 
@@ -63,7 +61,7 @@ public class MottakQueueEia2MeldingerProvider {
     }
 
     @Inject
-    public void setJmsMottakQueueEia2Meldinger(@Qualifier("Eia2JmsTemplate") JmsTemplate eia2JmsTemplate) {
-        this.eia2JmsTemplate = eia2JmsTemplate;
+    public void setJmsMottakQueuePadm2Meldinger(@Qualifier("Padm2JmsTemplate") JmsTemplate jmsMottakQueuePadm2Meldinger) {
+        this.padm2JmsTemplate = jmsMottakQueuePadm2Meldinger;
     }
 }

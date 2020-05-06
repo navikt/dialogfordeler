@@ -3,6 +3,7 @@ package no.nav.syfo.config;
 import com.ibm.mq.jms.MQQueue;
 import com.ibm.mq.jms.MQXAConnectionFactory;
 import no.nav.syfo.jms.UserCredentialsXaConnectionFactoryAdapter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jms.XAConnectionFactoryWrapper;
 import org.springframework.context.ApplicationContext;
@@ -33,6 +34,8 @@ public class JmsConfig {
     private String dialogmeldingerQueuename;
     @Value("${mottak.queue.eia2.meldinger.queuename}")
     private String mottakQueueEia2MeldingerQueuename;
+    @Value("${mottak.queue.padm2.meldinger.queuename}")
+    private String mottakQueuePadm2MeldingerQueuename;
     @Value("${mottak.queue.utsending.queuename}")
     private String mottakQueueUtsendingQueuename;
     @Value("${mottak.queue.ebrev.kvittering.queuename}")
@@ -61,31 +64,49 @@ public class JmsConfig {
     /**
      * QA.T414.FS06_EIA_MELDINGER
      */
-    @Bean
-    public JmsTemplate jmsMottakQueueEia2Meldinger(Queue mottakQueueEia2Meldinger, ConnectionFactory connectionFactory) {
+    @Bean(name = "Eia2JmsTemplate")
+    public JmsTemplate jmsMottakQueueEia2Meldinger(@Qualifier("Eia2Queue") Queue mottakQueueEia2Meldinger, ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setDefaultDestination(mottakQueueEia2Meldinger);
         jmsTemplate.setConnectionFactory(connectionFactory);
         return jmsTemplate;
     }
 
-    @Bean
+    @Bean(name = "Eia2Queue")
     public Queue mottakQueueEia2Meldinger() throws JMSException {
         return new MQQueue(mottakQueueEia2MeldingerQueuename);
+    }
+
+
+    /**
+     * QA.Q1_PADM.INPUT
+     */
+    @Bean(name = "Padm2JmsTemplate")
+    public JmsTemplate jmsMottakQueuePadm2Meldinger(@Qualifier("Padm2Queue") Queue mottakQueuePadm2Meldinger, ConnectionFactory connectionFactory) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
+        jmsTemplate.setDefaultDestination(mottakQueuePadm2Meldinger);
+        jmsTemplate.setConnectionFactory(connectionFactory);
+        return jmsTemplate;
+    }
+
+
+    @Bean(name = "Padm2Queue")
+    public Queue mottakQueuePadm2Meldinger() throws JMSException {
+        return new MQQueue(mottakQueuePadm2MeldingerQueuename);
     }
 
     /**
      * QA.Q414.IU03_UTSENDING
      */
-    @Bean
-    public JmsTemplate jmsMottakQueueUtsending(Queue mottakQueueUtsending, ConnectionFactory connectionFactory) {
+    @Bean(name = "UtsendingJmsTemplate")
+    public JmsTemplate jmsMottakQueueUtsending(@Qualifier("UtsendingQueue") Queue mottakQueueUtsending, ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setDefaultDestination(mottakQueueUtsending);
         jmsTemplate.setConnectionFactory(connectionFactory);
         return jmsTemplate;
     }
 
-    @Bean
+    @Bean(name = "UtsendingQueue")
     public Queue mottakQueueUtsending() throws JMSException {
         return new MQQueue(mottakQueueUtsendingQueuename);
     }
@@ -93,15 +114,15 @@ public class JmsConfig {
     /**
      * QA.Q414.IU03_EBREV_KVITTERING
      */
-    @Bean
-    public JmsTemplate jmsMottakQueueEbrevKvittering(Queue mottakQueueEbrevKvittering, ConnectionFactory connectionFactory) {
+    @Bean(name = "EbrevJmsTemplate")
+    public JmsTemplate jmsMottakQueueEbrevKvittering(@Qualifier("EbrevQueue") Queue mottakQueueEbrevKvittering, ConnectionFactory connectionFactory) {
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setDefaultDestination(mottakQueueEbrevKvittering);
         jmsTemplate.setConnectionFactory(connectionFactory);
         return jmsTemplate;
     }
 
-    @Bean
+    @Bean(name = "EbrevQueue")
     public Queue mottakQueueEbrevKvittering() throws JMSException {
         return new MQQueue(mottakQueueEbrevKvitteringQueuename);
     }
