@@ -1,6 +1,7 @@
 package no.nav.syfo.provider.mq;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class MottakQueueEbrevKvitteringProvider {
     private JmsTemplate jmsMottakQueueEbrevKvittering;
     private boolean leggMeldingerPaKo;
 
-    public MottakQueueEbrevKvitteringProvider(JmsTemplate jmsMottakQueueEbrevKvittering,
+    public MottakQueueEbrevKvitteringProvider(@Qualifier("EbrevJmsTemplate") JmsTemplate jmsMottakQueueEbrevKvittering,
                                               @Value("${toggle.legg.meldinger.pa.ko:false}")
                                                 boolean leggMeldingerPaKo) {
         this.jmsMottakQueueEbrevKvittering = jmsMottakQueueEbrevKvittering;
