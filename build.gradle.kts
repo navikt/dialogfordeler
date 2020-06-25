@@ -5,18 +5,28 @@ import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransf
 group = "no.nav.syfo"
 version = "1.0.0"
 
+val ojdbc8Version = "19.3.0.0"
 val springBootVersion = "2.0.0.RELEASE"
+val syfotjenesterVersion = "1.2020.06.25-12.35-50610b959e55"
 
 plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "4.0.3"
 }
 
+val githubUser: String by project
+val githubPassword: String by project
 repositories {
     mavenCentral()
     jcenter()
-    maven(url = "https://repo.adeo.no/repository/maven-releases/")
     maven(url = "http://packages.confluent.io/maven/")
+    maven {
+        url = uri("https://maven.pkg.github.com/navikt/syfotjenester")
+        credentials {
+            username = githubUser
+            password = githubPassword
+        }
+    }
 }
 
 dependencies {
@@ -26,8 +36,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-jta-atomikos:$springBootVersion")
-    runtime("com.oracle:ojdbc8:12.2.0.1")
+
+    implementation("com.oracle.ojdbc:ojdbc8:$ojdbc8Version")
     implementation("org.flywaydb:flyway-core:5.0.7")
+
     implementation("org.bitbucket.b_c:jose4j:0.5.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.0.2")
     implementation("org.slf4j:slf4j-api:1.7.25")
@@ -37,11 +49,13 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.16.20")
     implementation("com.ibm.mq:com.ibm.mq.allclient:9.0.4.0")
     implementation("org.springframework:spring-jms:5.0.4.RELEASE")
-    implementation("no.nav.syfo.tjenester:fellesformat:1.2")
-    implementation("no.nav.syfo.tjenester:kith-hodemelding:1.1")
-    implementation("no.nav.syfo.tjenester:kith-dialogmelding:1.1")
-    implementation("no.nav.syfo.tjenester:kith-base64:1.1")
-    implementation("no.nav.syfo.tjenester:kith-apprec:1.1")
+
+    implementation("no.nav.syfotjenester:fellesformat:$syfotjenesterVersion")
+    implementation("no.nav.syfotjenester:kith-apprec:$syfotjenesterVersion")
+    implementation("no.nav.syfotjenester:kith-base64:$syfotjenesterVersion")
+    implementation("no.nav.syfotjenester:kith-dialogmelding:$syfotjenesterVersion")
+    implementation("no.nav.syfotjenester:kith-hodemelding:$syfotjenesterVersion")
+
     testImplementation("junit:junit:4.12")
     testImplementation("org.mockito:mockito-core:2.15.0")
     testImplementation("org.assertj:assertj-core:3.6.2")
