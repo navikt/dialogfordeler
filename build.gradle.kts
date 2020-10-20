@@ -6,7 +6,7 @@ group = "no.nav.syfo"
 version = "1.0.0"
 
 val ojdbc8Version = "19.3.0.0"
-val springBootVersion = "2.0.0.RELEASE"
+val springBootVersion = "2.0.5.RELEASE"
 val syfotjenesterVersion = "1.2020.06.25-12.35-50610b959e55"
 
 plugins {
