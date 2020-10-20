@@ -32,11 +32,12 @@ repositories {
 
 dependencies {
     implementation("javax.inject:javax.inject:1")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-jta-atomikos")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation("org.springframework:spring-jms")
 
@@ -46,7 +47,6 @@ dependencies {
     implementation("org.bitbucket.b_c:jose4j:0.5.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.0.6")
     implementation("org.slf4j:slf4j-api:1.7.25")
-    implementation("org.springframework.boot:spring-boot-starter-logging")
     implementation("net.logstash.logback:logstash-logback-encoder:4.10")
     implementation("org.projectlombok:lombok:1.16.20")
     annotationProcessor("org.projectlombok:lombok:1.16.20")
