@@ -6,12 +6,13 @@ group = "no.nav.syfo"
 version = "1.0.0"
 
 val ojdbc8Version = "19.3.0.0"
-val springBootVersion = "2.0.5.RELEASE"
 val syfotjenesterVersion = "1.2020.06.25-12.35-50610b959e55"
 
 plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "4.0.3"
+    id("org.springframework.boot") version "2.0.5.RELEASE"
+    id("io.spring.dependency-management") version "1.0.9.RELEASE"
 }
 
 val githubUser: String by project
@@ -31,11 +32,11 @@ repositories {
 
 dependencies {
     implementation("javax.inject:javax.inject:1")
-    implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-jta-atomikos:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-jta-atomikos")
 
     implementation("com.oracle.ojdbc:ojdbc8:$ojdbc8Version")
     implementation("org.flywaydb:flyway-core:5.0.7")
@@ -43,7 +44,7 @@ dependencies {
     implementation("org.bitbucket.b_c:jose4j:0.5.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.0.2")
     implementation("org.slf4j:slf4j-api:1.7.25")
-    implementation("org.springframework.boot:spring-boot-starter-logging:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
     implementation("net.logstash.logback:logstash-logback-encoder:4.10")
     implementation("org.projectlombok:lombok:1.16.20")
     annotationProcessor("org.projectlombok:lombok:1.16.20")
@@ -59,7 +60,7 @@ dependencies {
     testImplementation("junit:junit:4.12")
     testImplementation("org.mockito:mockito-core:2.15.0")
     testImplementation("org.assertj:assertj-core:3.6.2")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test:5.0.3.RELEASE")
     testImplementation("com.h2database:h2:1.4.196")
 }
