@@ -7,7 +7,6 @@ version = "1.0.0"
 
 val ibmMqAllclientVersion = "9.0.5.0"
 val flywayVersion = "5.1.4"
-val lombokVersion = "1.18.12"
 val ojdbc8Version = "19.3.0.0"
 val prometheusVersion = "1.3.14"
 val syfotjenesterVersion = "1.2020.06.25-12.35-50610b959e55"
@@ -48,8 +47,8 @@ dependencies {
     implementation("com.oracle.ojdbc:ojdbc8:$ojdbc8Version")
     implementation("org.flywaydb:flyway-core:$flywayVersion")
 
-    implementation("org.projectlombok:lombok:$lombokVersion")
-    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    implementation("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 
     implementation("org.bitbucket.b_c:jose4j:0.5.0")
     implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
