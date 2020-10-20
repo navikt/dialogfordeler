@@ -14,7 +14,7 @@ val syfotjenesterVersion = "1.2020.06.25-12.35-50610b959e55"
 plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "5.2.0"
-    id("org.springframework.boot") version "2.1.8.RELEASE"
+    id("org.springframework.boot") version "2.1.17.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
 }
 
