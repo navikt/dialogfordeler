@@ -58,12 +58,9 @@ dependencies {
     implementation("no.nav.syfotjenester:kith-dialogmelding:$syfotjenesterVersion")
     implementation("no.nav.syfotjenester:kith-hodemelding:$syfotjenesterVersion")
 
-    testImplementation("junit:junit:4.12")
-    testImplementation("org.mockito:mockito-core:2.15.0")
-    testImplementation("org.assertj:assertj-core:3.6.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
-    testImplementation("com.h2database:h2:1.4.196")
+    testImplementation("com.h2database:h2")
 }
 
 
