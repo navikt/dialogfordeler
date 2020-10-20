@@ -38,6 +38,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-jta-atomikos")
 
+    implementation("org.springframework:spring-jms")
+
     implementation("com.oracle.ojdbc:ojdbc8:$ojdbc8Version")
     implementation("org.flywaydb:flyway-core:5.0.7")
 
@@ -49,7 +51,6 @@ dependencies {
     implementation("org.projectlombok:lombok:1.16.20")
     annotationProcessor("org.projectlombok:lombok:1.16.20")
     implementation("com.ibm.mq:com.ibm.mq.allclient:9.0.4.0")
-    implementation("org.springframework:spring-jms:5.0.4.RELEASE")
 
     implementation("no.nav.syfotjenester:fellesformat:$syfotjenesterVersion")
     implementation("no.nav.syfotjenester:kith-apprec:$syfotjenesterVersion")
