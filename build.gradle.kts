@@ -5,6 +5,7 @@ import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransf
 group = "no.nav.syfo"
 version = "1.0.0"
 
+val ibmMqAllclientVersion = "9.0.5.0"
 val ojdbc8Version = "19.3.0.0"
 val syfotjenesterVersion = "1.2020.06.25-12.35-50610b959e55"
 
@@ -50,7 +51,7 @@ dependencies {
     implementation("net.logstash.logback:logstash-logback-encoder:4.10")
     implementation("org.projectlombok:lombok:1.16.20")
     annotationProcessor("org.projectlombok:lombok:1.16.20")
-    implementation("com.ibm.mq:com.ibm.mq.allclient:9.0.4.0")
+    implementation("com.ibm.mq:com.ibm.mq.allclient:$ibmMqAllclientVersion")
 
     implementation("no.nav.syfotjenester:fellesformat:$syfotjenesterVersion")
     implementation("no.nav.syfotjenester:kith-apprec:$syfotjenesterVersion")
