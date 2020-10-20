@@ -42,7 +42,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core:5.0.7")
 
     implementation("org.bitbucket.b_c:jose4j:0.5.0")
-    implementation("io.micrometer:micrometer-registry-prometheus:1.0.2")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.0.6")
     implementation("org.slf4j:slf4j-api:1.7.25")
     implementation("org.springframework.boot:spring-boot-starter-logging")
     implementation("net.logstash.logback:logstash-logback-encoder:4.10")
