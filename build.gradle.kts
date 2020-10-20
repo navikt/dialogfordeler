@@ -9,6 +9,7 @@ val ibmMqAllclientVersion = "9.0.5.0"
 val flywayVersion = "5.1.4"
 val lombokVersion = "1.18.12"
 val ojdbc8Version = "19.3.0.0"
+val prometheusVersion = "1.3.14"
 val syfotjenesterVersion = "1.2020.06.25-12.35-50610b959e55"
 
 plugins {
@@ -51,7 +52,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
     implementation("org.bitbucket.b_c:jose4j:0.5.0")
-    implementation("io.micrometer:micrometer-registry-prometheus:1.0.6")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
     implementation("org.slf4j:slf4j-api:1.7.25")
     implementation("net.logstash.logback:logstash-logback-encoder:4.10")
     implementation("com.ibm.mq:com.ibm.mq.allclient:$ibmMqAllclientVersion")
