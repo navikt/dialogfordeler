@@ -67,7 +67,6 @@ dependencies {
     testImplementation("com.h2database:h2")
 }
 
-
 tasks {
     withType<Jar> {
         manifest.attributes["Main-Class"] = "no.nav.syfo.Application"
