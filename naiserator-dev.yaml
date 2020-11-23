@@ -84,3 +84,5 @@ spec:
       value: https://security-token-service.nais.preprod.local
     - name: MOTTAK_QUEUE_PADM2_MELDINGER_QUEUENAME
       value: QA.Q1_PADM.INPUT
+    - name: TOGGLE_LEGG_MELDINGER_PA_KO
+      value: true
