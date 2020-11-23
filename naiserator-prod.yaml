@@ -42,6 +42,8 @@ spec:
         mountPath: "/secrets/dialogfordelerdb/credentials"
       - kvPath: "/oracle/data/prod/config/dialogfordeler"
         mountPath: "/secrets/dialogfordelerdb/config"
+      - kvPath: "/serviceuser/data/prod/srvdialogfordeler"
+        mountPath: "/secrets/serviceuser/dialogfordeler"
       - kvPath: "/kv/prod/fss/dialogfordeler/default"
         mountPath: "/var/run/secrets/nais.io/vault"
   env:
