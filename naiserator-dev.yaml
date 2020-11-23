@@ -37,6 +37,13 @@ spec:
     - "https://dialogfordeler.nais.preprod.local"
   vault:
     enabled: true
+    paths:
+      - kvPath: "/oracle/data/dev/creds/dialogfordeler_q1-user"
+        mountPath: "/secrets/dialogfordelerdb/credentials"
+      - kvPath: "/oracle/data/dev/config/dialogfordeler_q1"
+        mountPath: "/secrets/dialogfordelerdb/config"
+      - kvPath: "/kv/preprod/fss/dialogfordeler/default"
+        mountPath: "/var/run/secrets/nais.io/vault"
   env:
     - name: APP_NAME
       value: "dialogfordeler"
