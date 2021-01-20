@@ -33,6 +33,9 @@ repositories {
 }
 
 dependencies {
+    implementation("javax.inject:javax.inject:1")
+    implementation("org.bitbucket.b_c:jose4j:0.5.0")
+
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-jta-atomikos")
