@@ -8,7 +8,7 @@ version = "1.0.0"
 val ibmMqAllclientVersion = "9.0.5.0"
 val flywayVersion = "5.1.4"
 val ojdbc8Version = "19.3.0.0"
-val prometheusVersion = "1.3.14"
+val prometheusVersion = "1.5.5"
 val syfotjenesterVersion = "1.2020.06.25-12.35-50610b959e55"
 
 plugins {
