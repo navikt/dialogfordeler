@@ -23,7 +23,6 @@ val githubPassword: String by project
 repositories {
     mavenCentral()
     jcenter()
-    maven(url = "http://packages.confluent.io/maven/")
     maven {
         url = uri("https://maven.pkg.github.com/navikt/syfotjenester")
         credentials {
