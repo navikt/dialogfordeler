@@ -50,7 +50,6 @@ dependencies {
     implementation("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
-    implementation("org.bitbucket.b_c:jose4j:0.5.0")
     implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
     implementation("org.slf4j:slf4j-api:1.7.25")
     implementation("net.logstash.logback:logstash-logback-encoder:4.10")
