@@ -42,7 +42,7 @@ mvn spring-boot:run -Dspring.profiles.active=local
 Dialogfordeler er satt opp med alerterator, slik når appen er nede vil det sendes en varsling til Slack kanalene #syfo-alarm.
 Spec'en for alerts ligger i filen alerts.yaml. Hvis man ønsker å forandre på hvilke varsler som skal sendes må man forandre
 på alerts.yaml og deretter kjøre:
-`kubectl apply -f alerts.yaml`.
+`kubectl apply -f .nais/alerts.yaml`.
 For å se status på dialogfordeler alerts kan man kjøre:
 `kubectl describe alert dialogfordeler-alerts`.
 Dokumentasjon for Alerterator ligger her: https://doc.nais.io/observability/alerts
