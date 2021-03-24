@@ -5,6 +5,9 @@ import com.github.jengelman.gradle.plugins.shadow.transformers.ServiceFileTransf
 group = "no.nav.syfo"
 version = "1.0.0"
 
+val javaxActivationVersion = "1.2.0"
+val jaxbApiVersion = "2.4.0-b180830.0359"
+
 val ibmMqAllclientVersion = "9.0.5.0"
 val flywayVersion = "5.1.4"
 val ojdbc8Version = "19.3.0.0"
@@ -47,6 +50,9 @@ dependencies {
 
     implementation("com.oracle.ojdbc:ojdbc8:$ojdbc8Version")
     implementation("org.flywaydb:flyway-core:$flywayVersion")
+
+    implementation("com.sun.activation:javax.activation:$javaxActivationVersion")
+    implementation("javax.xml.bind:jaxb-api:$jaxbApiVersion")
 
     implementation("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
