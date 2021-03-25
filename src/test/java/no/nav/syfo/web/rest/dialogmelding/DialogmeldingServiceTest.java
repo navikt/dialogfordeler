@@ -42,7 +42,7 @@ public class DialogmeldingServiceTest {
                         "        <ns2:MsgInfo>\n" +
                         "            <ns2:Type V=\"DIALOG_NOTAT\" DN=\"Notat\"/>\n" +
                         "            <ns2:MIGversion>v1.2 2006-05-24</ns2:MIGversion>\n")
-                .containsPattern("<ns2:GenDate>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{0,3}</ns2:GenDate>")
+                .containsPattern("<ns2:GenDate>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{0,7}</ns2:GenDate>")
                 .containsPattern("<ns2:MsgId>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}</ns2:MsgId>")
                 .contains("            <ns2:Ack V=\"J\" DN=\"Ja\"/>\n" +
                         "            <ns2:Sender>\n" +
