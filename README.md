@@ -1,5 +1,8 @@
 Dialogfordeler
 ================
+Dialogfordeler er nå pensjonert, og [isdialogmelding](https://github.com/navikt/isdialogmelding) har tatt over ruting av oppfølgingsplaner til behandlere.  
+Databasen får leve, og MQ-køen `QA.P_DIALOGFORDELER.DIALOGMELDINGER` blir ikke lest med mindre en annen app tar over appRec-funksjonalitet.  
+Spørsmål kan rettes til #isyfo på slack.
 
 Dialogfordeler skal rute meldinger til og fra lege til riktig fagsystem
 
